@@ -9,19 +9,19 @@ Harnessing cutting-edge tools like **Gemini AI**, **Inngest**, and **NeonDB**, t
 ## 🧠 Features
 
 - ✅ **AI Resume Builder** – Auto-generate ATS-friendly resumes with suggestions.
-- ![Screenshot 2025-07-06 004242](https://github.com/user-attachments/assets/0cc022e3-9c21-4721-8ae9-0aa8191d1f54)
+  ![Screenshot 2025-07-06 004242](https://github.com/user-attachments/assets/0cc022e3-9c21-4721-8ae9-0aa8191d1f54)
 
 - ✅ **Smart Interview Coach** – Practice interviews & get feedback via Gemini AI.
-- ![Screenshot 2025-07-06 004323](https://github.com/user-attachments/assets/564c58a1-50fe-4e31-9b64-6b56d543b398)
+  ![Screenshot 2025-07-06 004323](https://github.com/user-attachments/assets/564c58a1-50fe-4e31-9b64-6b56d543b398)
 
 - ✅ **Cover Letter Assistant** – Generate targeted cover letters with ease.
-- ![Screenshot 2025-07-06 004303](https://github.com/user-attachments/assets/2f2dde21-2643-4f3c-9bf1-d0c794d546f2)
+  ![Screenshot 2025-07-06 004303](https://github.com/user-attachments/assets/2f2dde21-2643-4f3c-9bf1-d0c794d546f2)
 
 - ✅ **Industry Insights** – AI-curated market trends, salaries & job roles.
-- ![Screenshot 2025-07-06 004343](https://github.com/user-attachments/assets/9643b5e0-382b-4854-91c6-f1e12438dc97)
+ ![Screenshot 2025-07-06 004343](https://github.com/user-attachments/assets/9643b5e0-382b-4854-91c6-f1e12438dc97)
 
 - ✅ **Authentication & Roles** – Managed via Clerk.
-- ![Screenshot 2025-07-06 014929](https://github.com/user-attachments/assets/94baa34d-c783-4106-8761-7470cef33d18)
+ ![Screenshot 2025-07-06 014929](https://github.com/user-attachments/assets/94baa34d-c783-4106-8761-7470cef33d18)
 
   
   
