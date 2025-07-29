@@ -46,23 +46,24 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
-      <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link href="/">
           <div className="flex items-center">
-            <span className="text-xl sm:text-2xl font-bold text-[--primary] hover:text-[--accent] transition-colors duration-300">
+            <span className="text-lg sm:text-xl md:text-2xl font-bold text-[--primary] hover:text-[--accent] transition-colors duration-300">
               SAARTHI
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden lg:flex items-center space-x-4">
           <LanguageSwitcher />
           <SignedIn>
             <Link href="/dashboard">
               <Button variant="outline" className="inline-flex items-center gap-2">
                 <LayoutDashboard className="h-4 w-4" />
-                {t("header.industryInsights")}
+                <span className="hidden xl:inline">{t("header.industryInsights")}</span>
+                <span className="xl:hidden">Dashboard</span>
               </Button>
             </Link>
 
@@ -70,7 +71,8 @@ const Header = () => {
               <DropdownMenuTrigger asChild>
                 <Button className="flex items-center gap-2">
                   <StarsIcon className="h-4 w-4" />
-                  <span>{t("header.growthTools")}</span>
+                  <span className="hidden xl:inline">{t("header.growthTools")}</span>
+                  <span className="xl:hidden">Tools</span>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -107,6 +109,38 @@ const Header = () => {
           </SignedIn>
         </div>
 
+        {/* Tablet Navigation */}
+        <div className="hidden md:flex lg:hidden items-center space-x-3">
+          <LanguageSwitcher />
+          <SignedIn>
+            <Link href="/dashboard">
+              <Button variant="outline" size="sm" className="inline-flex items-center gap-2">
+                <LayoutDashboard className="h-4 w-4" />
+                <span>Dashboard</span>
+              </Button>
+            </Link>
+          </SignedIn>
+
+          <SignedOut>
+            <SignInButton>
+              <Button variant="outline" size="sm">{t("header.signIn")}</Button>
+            </SignInButton>
+          </SignedOut>
+
+          <SignedIn>
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-8 h-8",
+                  userButtonPopoverCard: "shadow-xl",
+                  userPreviewMainIdentifier: "font-semibold",
+                },
+              }}
+              afterSignOutUrl="/"
+            />
+          </SignedIn>
+        </div>
+
         {/* Mobile Navigation */}
         <div className="md:hidden flex items-center space-x-2">
           <LanguageSwitcher />
@@ -117,13 +151,13 @@ const Header = () => {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] sm:w-[350px]">
+              <SheetContent side="right" className="w-[280px] sm:w-[320px]">
                 <SheetHeader>
                   <SheetTitle className="text-left">Menu</SheetTitle>
                 </SheetHeader>
                 <div className="mt-6 space-y-4">
                   <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full justify-start gap-3">
+                    <Button variant="ghost" className="w-full justify-start gap-3 h-12">
                       <LayoutDashboard className="h-4 w-4" />
                       {t("header.industryInsights")}
                     </Button>
@@ -136,7 +170,7 @@ const Header = () => {
                     <div className="space-y-2">
                       {navigationItems.map((item) => (
                         <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
-                          <Button variant="ghost" className="w-full justify-start gap-3">
+                          <Button variant="ghost" className="w-full justify-start gap-3 h-12">
                             <item.icon className="h-4 w-4" />
                             {item.label}
                           </Button>

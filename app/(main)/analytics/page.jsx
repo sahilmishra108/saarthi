@@ -98,26 +98,26 @@ export default function AnalyticsPage() {
       {/* Grid Background */}
       <div className="absolute inset-0 grid-background opacity-20"></div>
       
-      <div className="relative z-10 container mx-auto px-4 py-8">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Header */}
-        <div className="text-center mb-8" data-aos="fade-down">
-          <h1 className="text-4xl font-bold gradient-title mb-4">{t("analytics.title")}</h1>
-          <p className="text-[--muted-foreground] text-lg">
+        <div className="text-center mb-6 sm:mb-8" data-aos="fade-down">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-title mb-3 sm:mb-4">{t("analytics.title")}</h1>
+          <p className="text-[--muted-foreground] text-base sm:text-lg">
             {t("analytics.subtitle")}
           </p>
         </div>
 
         {/* Main Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" data-aos="fade-up">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8" data-aos="fade-up">
           <Card className="bg-white/5 backdrop-blur-xl border-[--accent]/20 hover:border-[--accent]/40 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-[--muted-foreground]">
+              <CardTitle className="text-xs sm:text-sm font-medium text-[--muted-foreground]">
                 {t("analytics.careerProgress")}
               </CardTitle>
-              <TrendingUp className="h-4 w-4 text-[--accent]" />
+              <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-[--accent]" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[--foreground]">{careerProgress}%</div>
+              <div className="text-lg sm:text-2xl font-bold text-[--foreground]">{careerProgress}%</div>
               <Progress value={careerProgress} className="mt-2" />
               <p className="text-xs text-[--muted-foreground] mt-2">
                 +5% from last month
@@ -127,13 +127,13 @@ export default function AnalyticsPage() {
 
           <Card className="bg-white/5 backdrop-blur-xl border-[--accent]/20 hover:border-[--accent]/40 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-[--muted-foreground]">
+              <CardTitle className="text-xs sm:text-sm font-medium text-[--muted-foreground]">
                 {t("analytics.skillScore")}
               </CardTitle>
-              <Target className="h-4 w-4 text-[--accent]" />
+              <Target className="h-3 w-3 sm:h-4 sm:w-4 text-[--accent]" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[--foreground]">{skillScore}%</div>
+              <div className="text-lg sm:text-2xl font-bold text-[--foreground]">{skillScore}%</div>
               <Progress value={skillScore} className="mt-2" />
               <p className="text-xs text-[--muted-foreground] mt-2">
                 +8% from last month
@@ -141,15 +141,15 @@ export default function AnalyticsPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/5 backdrop-blur-xl border-[--accent]/20 hover:border-[--accent]/40 transition-all duration-300">
+          <Card className="bg-white/5 backdrop-blur-xl border-[--accent]/20 hover:border-[--accent]/40 transition-all duration-300 sm:col-span-2 lg:col-span-1">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-[--muted-foreground]">
+              <CardTitle className="text-xs sm:text-sm font-medium text-[--muted-foreground]">
                 {t("analytics.applicationSuccess")}
               </CardTitle>
-              <Award className="h-4 w-4 text-[--accent]" />
+              <Award className="h-3 w-3 sm:h-4 sm:w-4 text-[--accent]" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[--foreground]">{applicationSuccess}%</div>
+              <div className="text-lg sm:text-2xl font-bold text-[--foreground]">{applicationSuccess}%</div>
               <Progress value={applicationSuccess} className="mt-2" />
               <p className="text-xs text-[--muted-foreground] mt-2">
                 +12% from last month
@@ -159,23 +159,23 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Skills Analysis */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8" data-aos="fade-up" data-aos-delay="100">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8" data-aos="fade-up" data-aos-delay="100">
           <Card className="bg-white/5 backdrop-blur-xl border-[--accent]/20">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BarChart3 className="h-5 w-5 text-[--accent]" />
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 text-[--accent]" />
                 Skills Analysis
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-xs sm:text-sm">
                 Your current skill levels and areas for improvement
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-3 sm:space-y-4">
               {skillData.map((skill, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium text-[--foreground]">{skill.name}</span>
-                    <span className="text-sm text-[--muted-foreground]">{skill.score}%</span>
+                    <span className="text-xs sm:text-sm font-medium text-[--foreground]">{skill.name}</span>
+                    <span className="text-xs sm:text-sm text-[--muted-foreground]">{skill.score}%</span>
                   </div>
                   <div className="w-full bg-[--muted] rounded-full h-2">
                     <div 
@@ -191,19 +191,19 @@ export default function AnalyticsPage() {
           {/* Career Goals */}
           <Card className="bg-white/5 backdrop-blur-xl border-[--accent]/20">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Target className="h-5 w-5 text-[--accent]" />
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <Target className="h-4 w-4 sm:h-5 sm:w-5 text-[--accent]" />
                 Career Goals Progress
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-xs sm:text-sm">
                 Track your progress towards career objectives
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-3 sm:space-y-4">
               {careerGoals.map((goal, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium text-[--foreground]">{goal.goal}</span>
+                    <span className="text-xs sm:text-sm font-medium text-[--foreground]">{goal.goal}</span>
                     <Badge variant="outline" className="text-xs">
                       {goal.target}
                     </Badge>
@@ -221,26 +221,26 @@ export default function AnalyticsPage() {
         {/* Recent Activities */}
         <Card className="bg-white/5 backdrop-blur-xl border-[--accent]/20" data-aos="fade-up" data-aos-delay="200">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Activity className="h-5 w-5 text-[--accent]" />
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+              <Activity className="h-4 w-4 sm:h-5 sm:w-5 text-[--accent]" />
               Recent Activities
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-xs sm:text-sm">
               Your latest career-related activities and updates
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {recentActivities.map((activity, index) => (
-                <div key={index} className="flex items-center gap-4 p-3 rounded-lg bg-white/5 border border-[--accent]/10 hover:border-[--accent]/30 transition-all duration-200">
-                  <div className="flex items-center gap-3">
+                <div key={index} className="flex items-center gap-3 sm:gap-4 p-3 rounded-lg bg-white/5 border border-[--accent]/10 hover:border-[--accent]/30 transition-all duration-200">
+                  <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                     {getActivityIcon(activity.type)}
-                    <div>
-                      <p className="text-sm font-medium text-[--foreground]">{activity.title}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs sm:text-sm font-medium text-[--foreground] truncate">{activity.title}</p>
                       <p className="text-xs text-[--muted-foreground]">{activity.date}</p>
                     </div>
                   </div>
-                  <div className="ml-auto flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-shrink-0">
                     {getStatusIcon(activity.status)}
                     <Badge 
                       variant={activity.status === "completed" ? "default" : "secondary"}
@@ -256,18 +256,21 @@ export default function AnalyticsPage() {
         </Card>
 
         {/* Action Buttons */}
-        <div className="flex justify-center mt-8 gap-4" data-aos="fade-up" data-aos-delay="300">
+        <div className="flex flex-col sm:flex-row justify-center mt-6 sm:mt-8 gap-3 sm:gap-4" data-aos="fade-up" data-aos-delay="300">
           <Button className="bg-gradient-to-r from-[--accent] to-[--accent]/90 text-[--primary] hover:from-[--accent]/90 hover:to-[--accent] shadow-lg hover:shadow-[0_0_20px_0_rgba(255,215,0,0.25)] transition-all duration-300">
             <BookOpen className="mr-2 h-4 w-4" />
-            {t("analytics.updateSkills")}
+            <span className="hidden sm:inline">{t("analytics.updateSkills")}</span>
+            <span className="sm:hidden">Update Skills</span>
           </Button>
           <Button variant="outline" className="border-[--accent]/20 text-[--foreground] hover:bg-[--accent]/10">
             <Calendar className="mr-2 h-4 w-4" />
-            {t("analytics.setNewGoals")}
+            <span className="hidden sm:inline">{t("analytics.setNewGoals")}</span>
+            <span className="sm:hidden">Set Goals</span>
           </Button>
           <Button variant="outline" className="border-[--accent]/20 text-[--foreground] hover:bg-[--accent]/10">
             <TrendingUp className="mr-2 h-4 w-4" />
-            {t("analytics.viewReport")}
+            <span className="hidden sm:inline">{t("analytics.viewReport")}</span>
+            <span className="sm:hidden">View Report</span>
           </Button>
         </div>
       </div>

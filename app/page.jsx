@@ -144,51 +144,51 @@ export default function LandingPage() {
       </header>
 
       {/* HERO SECTION */}
-      <section className="w-full min-h-[60vh] flex items-center bg-background relative z-10 pt-20 md:pt-24 scroll-fade-in">
-        <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-20 py-28 max-w-7xl">
-          <div className="flex-1" data-aos="fade-right">
-            <h1 className="text-6xl md:text-7xl font-extrabold mb-8 text-left leading-tight tracking-tight text-[--primary]" style={{letterSpacing: '-0.02em', lineHeight: '1.1'}}>
+      <section className="w-full min-h-[60vh] flex items-center bg-background relative z-10 pt-16 sm:pt-20 md:pt-24 scroll-fade-in">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20 py-16 sm:py-20 md:py-28 max-w-7xl">
+          <div className="flex-1 text-center lg:text-left" data-aos="fade-right">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 sm:mb-8 text-center lg:text-left leading-tight tracking-tight text-[--primary]" style={{letterSpacing: '-0.02em', lineHeight: '1.1'}}>
               Accelerate Your <span className="text-[--accent]">Career</span> with <span className="text-[--accent]">AI</span>
             </h1>
-            <p className="text-2xl text-[--muted-foreground] mb-10 max-w-2xl text-left font-normal" style={{lineHeight: '1.5'}}>
+            <p className="text-lg sm:text-xl md:text-2xl text-[--muted-foreground] mb-8 sm:mb-10 max-w-2xl mx-auto lg:mx-0 text-center lg:text-left font-normal" style={{lineHeight: '1.5'}}>
               The executive platform for modern professionals: AI-powered coaching, analytics, and job search mastery.
             </p>
-            <div className="flex gap-6 mt-6">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-6 justify-center lg:justify-start">
               <SignedIn>
                 <Link href="/dashboard">
-                  <Button size="lg" className="px-12 py-4 text-xl bg-[--accent] text-[--primary] font-bold shadow-lg hover:shadow-[0_0_32px_0_rgba(255,215,0,0.25)] hover:bg-[--primary-foreground] transition rounded-full">
-                    Go to Dashboard <ArrowRight className="ml-3 h-6 w-6" />
+                  <Button size="lg" className="px-8 sm:px-12 py-3 sm:py-4 text-lg sm:text-xl bg-[--accent] text-[--primary] font-bold shadow-lg hover:shadow-[0_0_32px_0_rgba(255,215,0,0.25)] hover:bg-[--primary-foreground] transition rounded-full">
+                    Go to Dashboard <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                   </Button>
                 </Link>
               </SignedIn>
               <SignedOut>
                 <SignInButton>
-                  <Button size="lg" className="px-12 py-4 text-xl bg-[--accent] text-[--primary] font-bold shadow-lg hover:shadow-[0_0_32px_0_rgba(255,215,0,0.25)] hover:bg-[--primary-foreground] transition rounded-full">
-                    Get Started <ArrowRight className="ml-3 h-6 w-6" />
+                  <Button size="lg" className="px-8 sm:px-12 py-3 sm:py-4 text-lg sm:text-xl bg-[--accent] text-[--primary] font-bold shadow-lg hover:shadow-[0_0_32px_0_rgba(255,215,0,0.25)] hover:bg-[--primary-foreground] transition rounded-full">
+                    Get Started <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                   </Button>
                 </SignInButton>
               </SignedOut>
               <Link href="#features">
-                <Button size="lg" variant="outline" className="px-12 py-4 text-xl border-[--accent] text-[--accent] font-bold rounded-full hover:bg-[--accent]/10 transition">
+                <Button size="lg" variant="outline" className="px-8 sm:px-12 py-3 sm:py-4 text-lg sm:text-xl border-[--accent] text-[--accent] font-bold rounded-full hover:bg-[--accent]/10 transition">
                   Learn More
                 </Button>
               </Link>
             </div>
           </div>
-          <div className="flex-1 flex justify-center items-center relative" data-aos="fade-left">
-            <Image src="/banner.png" width={520} height={340} alt="Professional Banner" className="rounded-3xl shadow-2xl border object-cover max-w-full h-auto" priority />
+          <div className="flex-1 flex justify-center items-center relative w-full max-w-lg lg:max-w-none" data-aos="fade-left">
+            <Image src="/banner.png" width={520} height={340} alt="Professional Banner" className="rounded-2xl sm:rounded-3xl shadow-2xl border object-cover w-full h-auto" priority />
           </div>
         </div>
       </section>
 
       {/* FEATURES GRID */}
-      <section id="features" className="w-full py-20 bg-background scroll-fade-in" data-aos="fade-up">
-        <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-6xl mx-auto">
-            <FeatureCard icon={<BarChart2 className="w-10 h-10" />} title="AI Analytics" desc="Track your growth and benchmark your progress." dataAosDelay={100} />
-            <FeatureCard icon={<Briefcase className="w-10 h-10" />} title="Smart Job Search" desc="Find the best roles, tailored to your skills." dataAosDelay={200} />
-            <FeatureCard icon={<UserCheck className="w-10 h-10" />} title="Interview Mastery" desc="Practice with real questions and instant feedback." dataAosDelay={300} />
-            <FeatureCard icon={<ShieldCheck className="w-10 h-10" />} title="Secure & Private" desc="Your data is encrypted and always yours." dataAosDelay={400} />
+      <section id="features" className="w-full py-12 sm:py-16 md:py-20 bg-background scroll-fade-in" data-aos="fade-up">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12 max-w-6xl mx-auto">
+            <FeatureCard icon={<BarChart2 className="w-8 h-8 sm:w-10 sm:h-10" />} title="AI Analytics" desc="Track your growth and benchmark your progress." dataAosDelay={100} />
+            <FeatureCard icon={<Briefcase className="w-8 h-8 sm:w-10 sm:h-10" />} title="Smart Job Search" desc="Find the best roles, tailored to your skills." dataAosDelay={200} />
+            <FeatureCard icon={<UserCheck className="w-8 h-8 sm:w-10 sm:h-10" />} title="Interview Mastery" desc="Practice with real questions and instant feedback." dataAosDelay={300} />
+            <FeatureCard icon={<ShieldCheck className="w-8 h-8 sm:w-10 sm:h-10" />} title="Secure & Private" desc="Your data is encrypted and always yours." dataAosDelay={400} />
           </div>
         </div>
       </section>
@@ -211,27 +211,27 @@ export default function LandingPage() {
       </section>
 
       {/* VISUAL ANALYTICS WIDGETS */}
-      <section id="analytics" className="w-full py-20 bg-background scroll-fade-in" data-aos="fade-up">
-        <div className="container mx-auto px-6 md:px-12 max-w-7xl flex flex-col md:flex-row gap-12 items-center justify-center">
-          <Card className="bg-gradient-to-br from-[--primary]/80 to-[--background] border-none shadow-2xl rounded-3xl p-12 flex-1 flex flex-col items-center justify-center min-w-[280px] max-w-[360px] transition-transform duration-300 hover:scale-105" style={{boxShadow:'0 8px 32px 0 rgba(31, 38, 135, 0.25)'}} data-aos="zoom-in">
+      <section id="analytics" className="w-full py-12 sm:py-16 md:py-20 bg-background scroll-fade-in" data-aos="fade-up">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl flex flex-col lg:flex-row gap-8 sm:gap-12 items-center justify-center">
+          <Card className="bg-gradient-to-br from-[--primary]/80 to-[--background] border-none shadow-2xl rounded-2xl sm:rounded-3xl p-8 sm:p-10 md:p-12 flex-1 flex flex-col items-center justify-center w-full max-w-sm lg:max-w-[360px] transition-transform duration-300 hover:scale-105" style={{boxShadow:'0 8px 32px 0 rgba(31, 38, 135, 0.25)'}} data-aos="zoom-in">
             <CardContent className="flex flex-col items-center">
               <DonutChart percent={82} label="Profile Completion" />
-              <span className="text-lg font-semibold text-[--muted-foreground] mt-4">Profile Completion</span>
-              <span className="text-4xl font-extrabold text-[--accent] mt-1 tracking-tight">82%</span>
+              <span className="text-base sm:text-lg font-semibold text-[--muted-foreground] mt-4">Profile Completion</span>
+              <span className="text-3xl sm:text-4xl font-extrabold text-[--accent] mt-1 tracking-tight">82%</span>
             </CardContent>
           </Card>
-          <div className="flex flex-col gap-8 flex-1 min-w-[260px]">
-            <KPIWidget icon={<BarChart2 className="w-7 h-7 text-[--primary-foreground]" />} label="Applications Sent" value="37" accentBg="from-[--accent] to-[--primary]" dataAosDelay={100} />
+          <div className="flex flex-col gap-6 sm:gap-8 flex-1 w-full max-w-sm lg:max-w-none">
+            <KPIWidget icon={<BarChart2 className="w-6 h-6 sm:w-7 sm:h-7 text-[--primary-foreground]" />} label="Applications Sent" value="37" accentBg="from-[--accent] to-[--primary]" dataAosDelay={100} />
             <div className="h-2" />
-            <KPIWidget icon={<UserCheck className="w-7 h-7 text-[--primary-foreground]" />} label="Interview Success" value="78%" accentBg="from-[--accent] to-[--primary]" dataAosDelay={200} />
+            <KPIWidget icon={<UserCheck className="w-6 h-6 sm:w-7 sm:h-7 text-[--primary-foreground]" />} label="Interview Success" value="78%" accentBg="from-[--accent] to-[--primary]" dataAosDelay={200} />
           </div>
         </div>
       </section>
 
       {/* TESTIMONIALS */}
-      <section id="testimonials" className="w-full py-10 bg-background scroll-fade-in" data-aos="fade-up">
-        <div className="container mx-auto px-6 md:px-12 max-w-3xl flex flex-col items-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+      <section id="testimonials" className="w-full py-10 sm:py-12 md:py-16 bg-background scroll-fade-in" data-aos="fade-up">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-3xl flex flex-col items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
             <TestimonialCard
               image="https://randomuser.me/api/portraits/men/32.jpg"
               quote="This platform gave me the edge I needed. The analytics and AI coaching are a game-changer for my career."
@@ -253,25 +253,25 @@ export default function LandingPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="w-full px-6 md:px-12 py-24 relative scroll-fade-in" data-aos="fade-up">
+      <section className="w-full px-4 sm:px-6 md:px-12 py-16 sm:py-20 md:py-24 relative scroll-fade-in" data-aos="fade-up">
         <div className="relative z-10 w-full max-w-4xl mx-auto">
-          <div className="backdrop-blur-xl bg-gradient-to-br from-[--background]/95 to-[--card]/95 border border-[--accent]/20 shadow-xl rounded-2xl p-12 md:p-16">
-            <div className="text-center space-y-8">
-              <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold text-[--foreground] leading-tight">
+          <div className="backdrop-blur-xl bg-gradient-to-br from-[--background]/95 to-[--card]/95 border border-[--accent]/20 shadow-xl rounded-2xl p-8 sm:p-12 md:p-16">
+            <div className="text-center space-y-6 sm:space-y-8">
+              <div className="space-y-3 sm:space-y-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[--foreground] leading-tight">
                   Ready to accelerate your career?
                 </h2>
-                <p className="text-lg text-[--muted-foreground] max-w-2xl mx-auto leading-relaxed">
+                <p className="text-base sm:text-lg text-[--muted-foreground] max-w-2xl mx-auto leading-relaxed">
                   Join top professionals using AI to get ahead.
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
                 <SignedIn>
                   <Link href="/dashboard" passHref>
                     <Button
                       size="lg"
-                      className="h-11 px-8 bg-[--accent] text-[--primary] font-semibold hover:bg-[--primary-foreground] transition-all duration-300 shadow-sm hover:shadow-md"
+                      className="h-11 px-6 sm:px-8 bg-[--accent] text-[--primary] font-semibold hover:bg-[--primary-foreground] transition-all duration-300 shadow-sm hover:shadow-md"
                     >
                       Go to Dashboard
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -282,7 +282,7 @@ export default function LandingPage() {
                   <SignInButton>
                     <Button
                       size="lg"
-                      className="h-11 px-8 bg-[--accent] text-[--primary] font-semibold hover:bg-[--primary-foreground] transition-all duration-300 shadow-sm hover:shadow-md"
+                      className="h-11 px-6 sm:px-8 bg-[--accent] text-[--primary] font-semibold hover:bg-[--primary-foreground] transition-all duration-300 shadow-sm hover:shadow-md"
                     >
                       Get Started
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -297,85 +297,85 @@ export default function LandingPage() {
 
       {/* FOOTER */}
       <footer className="w-full bg-gradient-to-b from-[--background]/80 to-[--card]/90 border-t border-[--accent]/30 backdrop-blur-xl relative z-10 scroll-fade-in">
-        <div className="container mx-auto px-6 md:px-12 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 py-12 sm:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
             {/* Company Info */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center shadow-lg">
-                  <span className="text-[--primary-foreground] font-bold text-xl">S</span>
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center shadow-lg">
+                  <span className="text-[--primary-foreground] font-bold text-lg sm:text-xl">S</span>
                 </div>
-                <span className="text-2xl font-bold text-[--primary]">SAARTHI</span>
+                <span className="text-xl sm:text-2xl font-bold text-[--primary]">SAARTHI</span>
               </div>
-              <p className="text-[--muted-foreground] leading-relaxed max-w-xs">
+              <p className="text-sm sm:text-base text-[--muted-foreground] leading-relaxed max-w-xs">
                 The executive platform for modern professionals. AI-powered coaching, analytics, and job search mastery.
               </p>
-              <div className="flex space-x-4">
-                <Link href="#" className="w-10 h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
-                  <Twitter className="w-5 h-5" />
+              <div className="flex space-x-3 sm:space-x-4">
+                <Link href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
+                  <Twitter className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Link>
-                <Link href="#" className="w-10 h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
-                  <Linkedin className="w-5 h-5" />
+                <Link href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
+                  <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Link>
-                <Link href="#" className="w-10 h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
-                  <Facebook className="w-5 h-5" />
+                <Link href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
+                  <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Link>
-                <Link href="#" className="w-10 h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
-                  <Instagram className="w-5 h-5" />
+                <Link href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
+                  <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Link>
               </div>
             </div>
 
             {/* Product Links */}
-            <div className="space-y-6">
-              <h3 className="text-lg font-bold text-[--accent]">Product</h3>
-              <div className="space-y-3">
-                <Link href="#features" className="block text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Features</Link>
-                <Link href="#analytics" className="block text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Analytics</Link>
-                <Link href="#pricing" className="block text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Pricing</Link>
-                <Link href="/dashboard" className="block text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Dashboard</Link>
-                <Link href="/api" className="block text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">API</Link>
+            <div className="space-y-4 sm:space-y-6">
+              <h3 className="text-base sm:text-lg font-bold text-[--accent]">Product</h3>
+              <div className="space-y-2 sm:space-y-3">
+                <Link href="#features" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Features</Link>
+                <Link href="#analytics" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Analytics</Link>
+                <Link href="#pricing" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Pricing</Link>
+                <Link href="/dashboard" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Dashboard</Link>
+                <Link href="/api" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">API</Link>
               </div>
             </div>
 
             {/* Company Links */}
-            <div className="space-y-6">
-              <h3 className="text-lg font-bold text-[--accent]">Company</h3>
-              <div className="space-y-3">
-                <Link href="/about" className="block text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">About Us</Link>
-                <Link href="/careers" className="block text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Careers</Link>
-                <Link href="/blog" className="block text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Blog</Link>
-                <Link href="/press" className="block text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Press</Link>
-                <Link href="/partners" className="block text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Partners</Link>
+            <div className="space-y-4 sm:space-y-6">
+              <h3 className="text-base sm:text-lg font-bold text-[--accent]">Company</h3>
+              <div className="space-y-2 sm:space-y-3">
+                <Link href="/about" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">About Us</Link>
+                <Link href="/careers" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Careers</Link>
+                <Link href="/blog" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Blog</Link>
+                <Link href="/press" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Press</Link>
+                <Link href="/partners" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Partners</Link>
               </div>
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-6">
-              <h3 className="text-lg font-bold text-[--accent]">Contact</h3>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <Mail className="w-5 h-5 text-[--accent]" />
-                  <span className="text-[--muted-foreground]">hello@saarthi.com</span>
+            <div className="space-y-4 sm:space-y-6">
+              <h3 className="text-base sm:text-lg font-bold text-[--accent]">Contact</h3>
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-[--accent]" />
+                  <span className="text-sm sm:text-base text-[--muted-foreground]">hello@saarthi.com</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Phone className="w-5 h-5 text-[--accent]" />
-                  <span className="text-[--muted-foreground]">+1 (555) 123-4567</span>
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-[--accent]" />
+                  <span className="text-sm sm:text-base text-[--muted-foreground]">+1 (555) 123-4567</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <MapPin className="w-5 h-5 text-[--accent]" />
-                  <span className="text-[--muted-foreground]">San Francisco, CA</span>
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[--accent]" />
+                  <span className="text-sm sm:text-base text-[--muted-foreground]">San Francisco, CA</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-[--accent]/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-[--muted-foreground] text-sm">
+          <div className="border-t border-[--accent]/20 mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0">
+            <div className="text-xs sm:text-sm text-[--muted-foreground]">
               © 2024 SAARTHI. All rights reserved.
             </div>
-            <div className="flex space-x-6 text-sm">
+            <div className="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6 text-xs sm:text-sm">
               <Link href="/privacy" className="text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Privacy Policy</Link>
               <Link href="/terms" className="text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Terms of Service</Link>
               <Link href="/cookies" className="text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Cookie Policy</Link>
@@ -401,20 +401,20 @@ function HeroVisual() {
 function FeatureCard({ icon, title, desc, dataAosDelay }) {
   return (
     <Card
-      className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/30 shadow-2xl rounded-3xl p-10 flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 hover:border-[--accent] hover:shadow-[0_8px_32px_0_rgba(255,215,0,0.15)] group"
+      className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/30 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 hover:border-[--accent] hover:shadow-[0_8px_32px_0_rgba(255,215,0,0.15)] group"
       style={{boxShadow:'0 8px 32px 0 rgba(31, 38, 135, 0.18)'}}
       data-aos="zoom-in"
       data-aos-delay={dataAosDelay}
     >
       <CardContent>
         <div className="flex flex-col items-center">
-          <div className="mb-5 flex items-center justify-center">
-            <span className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] shadow-lg group-hover:shadow-[0_0_24px_0_rgba(124,58,237,0.25)]">
-              {React.cloneElement(icon, { className: 'w-8 h-8 text-[--primary-foreground]' })}
+          <div className="mb-4 sm:mb-5 flex items-center justify-center">
+            <span className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] shadow-lg group-hover:shadow-[0_0_24px_0_rgba(124,58,237,0.25)]">
+              {React.cloneElement(icon, { className: 'w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[--primary-foreground]' })}
             </span>
           </div>
-          <h3 className="text-xl font-extrabold text-[--accent] mb-2 tracking-tight drop-shadow-sm">{title}</h3>
-          <p className="text-base text-[--foreground]/90 leading-relaxed font-medium drop-shadow-sm">{desc}</p>
+          <h3 className="text-lg sm:text-xl font-extrabold text-[--accent] mb-2 tracking-tight drop-shadow-sm">{title}</h3>
+          <p className="text-sm sm:text-base text-[--foreground]/90 leading-relaxed font-medium drop-shadow-sm">{desc}</p>
         </div>
       </CardContent>
     </Card>
@@ -423,8 +423,8 @@ function FeatureCard({ icon, title, desc, dataAosDelay }) {
 
 function DonutChart({ percent, label }) {
   // SVG donut chart with gradient stroke and drop shadow
-  const radius = 60;
-  const stroke = 14;
+  const radius = 50; // Reduced from 60 for better mobile fit
+  const stroke = 12; // Reduced from 14 for better mobile fit
   const normalizedRadius = radius - stroke / 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const offset = circumference - (percent / 100) * circumference;
@@ -462,7 +462,7 @@ function DonutChart({ percent, label }) {
         y="50%"
         textAnchor="middle"
         dy=".3em"
-        fontSize="2rem"
+        fontSize="1.5rem"
         fill="#ffd700"
         fontWeight="bold"
       >
@@ -474,13 +474,13 @@ function DonutChart({ percent, label }) {
 
 function KPIWidget({ icon, label, value, accentBg, dataAosDelay }) {
   return (
-    <Card className="bg-gradient-to-br from-[--background] to-[--card] border-none shadow-xl rounded-2xl p-8 flex flex-row items-center gap-6 transition-transform duration-300 hover:scale-105" style={{boxShadow:'0 4px 16px 0 rgba(31, 38, 135, 0.15)'}} data-aos="fade-up" data-aos-delay={dataAosDelay}>
-      <div className={`rounded-xl p-3 bg-gradient-to-br ${accentBg} shadow-md flex items-center justify-center`}>
+    <Card className="bg-gradient-to-br from-[--background] to-[--card] border-none shadow-xl rounded-2xl p-6 sm:p-8 flex flex-row items-center gap-4 sm:gap-6 transition-transform duration-300 hover:scale-105" style={{boxShadow:'0 4px 16px 0 rgba(31, 38, 135, 0.15)'}} data-aos="fade-up" data-aos-delay={dataAosDelay}>
+      <div className={`rounded-xl p-2 sm:p-3 bg-gradient-to-br ${accentBg} shadow-md flex items-center justify-center`}>
         {icon}
       </div>
       <div className="flex flex-col flex-1">
-        <span className="text-lg font-semibold text-[--primary] mb-1">{label}</span>
-        <span className="text-3xl font-extrabold text-[--accent] tracking-tight">{value}</span>
+        <span className="text-base sm:text-lg font-semibold text-[--primary] mb-1">{label}</span>
+        <span className="text-2xl sm:text-3xl font-extrabold text-[--accent] tracking-tight">{value}</span>
       </div>
     </Card>
   );
@@ -489,18 +489,18 @@ function KPIWidget({ icon, label, value, accentBg, dataAosDelay }) {
 function TestimonialCard({ image, quote, name, role, delay, small }) {
   return (
     <Card
-      className={`backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20 shadow-xl rounded-2xl ${small ? 'p-6' : 'p-12'} flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 hover:border-[--primary]/40 hover:shadow-lg group`}
+      className={`backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20 shadow-xl rounded-2xl ${small ? 'p-4 sm:p-6' : 'p-8 sm:p-12'} flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 hover:border-[--primary]/40 hover:shadow-lg group`}
       data-aos="fade-up"
       data-aos-delay={delay}
     >
       <CardContent>
-        <div className="flex flex-col items-center gap-3">
-          <span className={`inline-flex items-center justify-center ${small ? 'w-12 h-12' : 'w-20 h-20'} rounded-full bg-gradient-to-br from-[--primary] to-[--primary]/80 p-1 shadow-md mb-1`}>
+        <div className="flex flex-col items-center gap-2 sm:gap-3">
+          <span className={`inline-flex items-center justify-center ${small ? 'w-10 h-10 sm:w-12 sm:h-12' : 'w-16 h-16 sm:w-20 sm:h-20'} rounded-full bg-gradient-to-br from-[--primary] to-[--primary]/80 p-1 shadow-md mb-1`}>
             <Image src={image} width={small ? 40 : 72} height={small ? 40 : 72} alt={name} className="rounded-full border-2 border-[--background] object-cover" />
           </span>
-          <span className={`text-3xl text-[--primary] mb-1`}>“</span>
+          <span className={`text-2xl sm:text-3xl text-[--primary] mb-1`}>"</span>
           <AnimatedQuote text={quote} small={small} />
-          <span className={`font-semibold text-[--primary] ${small ? 'text-base' : 'text-lg'} mt-1`}>{name}</span>
+          <span className={`font-semibold text-[--primary] ${small ? 'text-sm sm:text-base' : 'text-base sm:text-lg'} mt-1`}>{name}</span>
           <span className={`text-xs text-[--muted-foreground] block`}>{role}</span>
         </div>
       </CardContent>
@@ -510,8 +510,8 @@ function TestimonialCard({ image, quote, name, role, delay, small }) {
 
 function AnimatedQuote({ text, small }) {
   return (
-    <span className={`block italic ${small ? 'text-base' : 'text-2xl'} text-[--foreground] mb-2 font-medium leading-relaxed animate-fade-slide-up relative`}>
-      <svg className={`inline-block ${small ? 'w-5 h-5' : 'w-7 h-7'} text-[--primary] mr-2 align-text-top`} fill="none" viewBox="0 0 24 24"><path d="M7.17 15A3.001 3.001 0 0 1 4 12c0-2.21 1.79-4 4-4 .34 0 .67.04.99.12A4.992 4.992 0 0 0 4 17h4v-2H7.17ZM17.17 15A3.001 3.001 0 0 1 14 12c0-2.21 1.79-4 4-4 .34 0 .67.04.99.12A4.992 4.992 0 0 0 14 17h4v-2h-0.83Z" fill="currentColor"/></svg>
+    <span className={`block italic ${small ? 'text-sm sm:text-base' : 'text-lg sm:text-2xl'} text-[--foreground] mb-2 font-medium leading-relaxed animate-fade-slide-up relative`}>
+      <svg className={`inline-block ${small ? 'w-4 h-4 sm:w-5 sm:h-5' : 'w-6 h-6 sm:w-7 sm:h-7'} text-[--primary] mr-2 align-text-top`} fill="none" viewBox="0 0 24 24"><path d="M7.17 15A3.001 3.001 0 0 1 4 12c0-2.21 1.79-4 4-4 .34 0 .67.04.99.12A4.992 4.992 0 0 0 4 17h4v-2H7.17ZM17.17 15A3.001 3.001 0 0 1 14 12c0-2.21 1.79-4 4-4 .34 0 .67.04.99.12A4.992 4.992 0 0 0 14 17h4v-2h-0.83Z" fill="currentColor"/></svg>
       {text}
     </span>
   );
