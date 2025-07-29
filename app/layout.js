@@ -5,11 +5,12 @@ import Header from "@/components/header";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { Toaster } from "sonner";
+import Chatbot from "@/components/chatbot";
 
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
-  title: "Saarthi - AI Career Coach",
+  title: "SAARTHI - AI Career Coach",
   description: " AI Career Coach is your smart, personal guide for career growth. Get resume tips, interview prep, skill insights, and job advice — all powered by AI, anytime you need it.",
 };
 
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
             <Header />
             <main className="min-h-screen">{children}</main>
             <Toaster richColors />
+            <Chatbot />
             
             {/* footer */}
             <footer className="bg-muted/50 py-12">

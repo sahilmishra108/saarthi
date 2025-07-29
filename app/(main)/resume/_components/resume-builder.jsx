@@ -23,7 +23,13 @@ import useFetch from "@/hooks/use-fetch";
 import { useUser } from "@clerk/nextjs";
 import { entriesToMarkdown } from "@/app/lib/helper";
 import { resumeSchema } from "@/app/lib/schema";
-import html2pdf from "html2pdf.js/dist/html2pdf.min.js";
+// Dynamic imports to avoid SSR issues
+let html2canvas = null;
+if (typeof window !== 'undefined') {
+  import("html2canvas").then(module => {
+    html2canvas = module.default;
+  });
+}
 
 export default function ResumeBuilder({ initialContent }) {
   const [activeTab, setActiveTab] = useState("edit");
@@ -115,18 +121,95 @@ export default function ResumeBuilder({ initialContent }) {
   const generatePDF = async () => {
     setIsGenerating(true);
     try {
-      const element = document.getElementById("resume-pdf");
-      const opt = {
-        margin: [15, 15],
-        filename: "resume.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      };
+      // Create a temporary container for PDF generation
+      const tempContainer = document.createElement('div');
+      tempContainer.style.cssText = `
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        width: 800px;
+        background: white;
+        color: black;
+        padding: 40px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        border: 1px solid #ccc;
+      `;
+      
+      // Convert markdown to HTML
+      const markdownContent = previewContent || initialContent || '';
+      
+      // Simple markdown to HTML conversion for basic formatting
+      let htmlContent = markdownContent
+        .replace(/^### (.*$)/gim, '<h3 style="color: #333; margin: 20px 0 10px 0; font-size: 18px;">$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2 style="color: #333; margin: 25px 0 15px 0; font-size: 22px; border-bottom: 2px solid #333; padding-bottom: 5px;">$1</h2>')
+        .replace(/^# (.*$)/gim, '<h1 style="color: #333; margin: 30px 0 20px 0; font-size: 28px; text-align: center;">$1</h1>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>')
+        .replace(/\n\n/g, '<br><br>');
 
-      await html2pdf().set(opt).from(element).save();
+      tempContainer.innerHTML = htmlContent;
+      document.body.appendChild(tempContainer);
+
+      // Use jsPDF directly for more reliable PDF generation
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF('p', 'mm', 'a4');
+      
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const margin = 20;
+      const maxWidth = pageWidth - (2 * margin);
+      
+      // Convert HTML to canvas for better text handling
+      const canvas = await html2canvas(tempContainer, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff'
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = pageWidth - (2 * margin);
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      let heightLeft = imgHeight;
+      let position = 0;
+      
+      doc.addImage(imgData, 'PNG', margin, margin, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      doc.save('resume.pdf');
+      
+      // Clean up
+      document.body.removeChild(tempContainer);
+      
     } catch (error) {
       console.error("PDF generation error:", error);
+      
+      // Fallback to simple text-based PDF
+      try {
+        const { jsPDF } = await import('jspdf');
+        const doc = new jsPDF('p', 'mm', 'a4');
+        
+        const text = previewContent || initialContent || 'Resume content not available';
+        const lines = doc.splitTextToSize(text, 170);
+        
+        doc.setFontSize(12);
+        doc.text(lines, 20, 20);
+        doc.save('resume.pdf');
+      } catch (fallbackError) {
+        console.error("Fallback PDF generation failed:", fallbackError);
+        alert("Failed to generate PDF. Please try again.");
+      }
     } finally {
       setIsGenerating(false);
     }
@@ -402,7 +485,17 @@ export default function ResumeBuilder({ initialContent }) {
             />
           </div>
           <div className="hidden">
-            <div id="resume-pdf">
+            <div 
+              id="resume-pdf"
+              style={{
+                background: "white",
+                color: "black",
+                padding: "20px",
+                fontFamily: "Arial, sans-serif",
+                fontSize: "14px",
+                lineHeight: "1.6"
+              }}
+            >
               <MDEditor.Markdown
                 source={previewContent}
                 style={{

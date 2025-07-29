@@ -9,6 +9,8 @@ import {
   GraduationCap,
   ChevronDown,
   StarsIcon,
+  Briefcase,
+  BarChart3,
 } from "lucide-react";
 import Link from "next/link";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
@@ -19,24 +21,27 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import LanguageSwitcher from "./language-switcher";
+import { useTranslation } from "@/hooks/useTranslation";
 
 // ❌ REMOVE this line: import { checkUser } from "@/lib/checkUser";
 
 const Header = () => {
+  const { t } = useTranslation();
+  
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/">
-          <Image
-            src={"/logo.png"}
-            alt="Saarthi Logo"
-            width={200}
-            height={60}
-            className="h-12 py-1 w-auto object-contain"
-          />
+          <div className="flex items-center">
+            <span className="text-2xl font-bold text-[--primary] hover:text-[--accent] transition-colors duration-300">
+              SAARTHI
+            </span>
+          </div>
         </Link>
 
         <div className="flex items-center space-x-2 md:space-x-4">
+          <LanguageSwitcher />
           <SignedIn>
             <Link href="/dashboard">
               <Button
@@ -44,7 +49,7 @@ const Header = () => {
                 className="hidden md:inline-flex items-center gap-2"
               >
                 <LayoutDashboard className="h-4 w-4" />
-                Industry Insights
+                {t("header.industryInsights")}
               </Button>
               <Button variant="ghost" className="md:hidden w-10 h-10 p-0">
                 <LayoutDashboard className="h-4 w-4" />
@@ -55,7 +60,7 @@ const Header = () => {
               <DropdownMenuTrigger asChild>
                 <Button className="flex items-center gap-2">
                   <StarsIcon className="h-4 w-4" />
-                  <span className="hidden md:block">Growth Tools</span>
+                  <span className="hidden md:block">{t("header.growthTools")}</span>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -63,19 +68,31 @@ const Header = () => {
                 <DropdownMenuItem asChild>
                   <Link href="/resume" className="flex items-center gap-2">
                     <FileText className="h-4 w-4" />
-                    Build Resume
+                    {t("header.buildResume")}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/ai-cover-letter" className="flex items-center gap-2">
                     <PenBox className="h-4 w-4" />
-                    Cover Letter
+                    {t("header.coverLetter")}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/interview" className="flex items-center gap-2">
                     <GraduationCap className="h-4 w-4" />
-                    Interview Prep
+                    {t("header.interviewPrep")}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/job-tracker" className="flex items-center gap-2">
+                    <Briefcase className="h-4 w-4" />
+                    {t("header.jobTracker")}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/analytics" className="flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4" />
+                    {t("header.analytics")}
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -84,7 +101,7 @@ const Header = () => {
 
           <SignedOut>
             <SignInButton>
-              <Button variant="outline">Sign In</Button>
+              <Button variant="outline">{t("header.signIn")}</Button>
             </SignInButton>
           </SignedOut>
 

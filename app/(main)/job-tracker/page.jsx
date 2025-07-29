@@ -1,10 +1,7 @@
 import AOSInit from "@/components/AOSInit";
-import DashboardView from "./_component/dashboard-view";
-import { getIndustryInsights } from "@/actions/dashboard";
+import JobTracker from "./_components/job-tracker";
 
-export default async function DashboardPage() {
-  const insights = await getIndustryInsights();
-
+export default function JobTrackerPage() {
   return (
     <>
       <AOSInit />
@@ -13,14 +10,14 @@ export default async function DashboardPage() {
         <div className="container mx-auto py-8 px-6 md:px-12">
           <div className="mb-8 text-center" data-aos="fade-up">
             <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-[--primary]">
-              Industry <span className="text-[--accent]">Insights</span>
+              Job <span className="text-[--accent]">Tracker</span>
             </h1>
             <p className="text-xl text-[--muted-foreground] max-w-2xl mx-auto">
-              Stay updated with the latest trends, salary insights, and career opportunities in your industry
+              Track your job applications, interviews, and career progress with AI-powered insights
             </p>
           </div>
           <div className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--accent]/20 shadow-2xl rounded-3xl p-8" data-aos="fade-up" data-aos-delay="200">
-            <DashboardView insights={insights} />
+            <JobTracker />
           </div>
         </div>
       </div>
