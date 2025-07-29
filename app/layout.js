@@ -14,6 +14,12 @@ export const metadata = {
   description: " AI Career Coach is your smart, personal guide for career growth. Get resume tips, interview prep, skill insights, and job advice — all powered by AI, anytime you need it.",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider appearance={{
@@ -36,9 +42,9 @@ export default function RootLayout({ children }) {
             <Chatbot />
             
             {/* footer */}
-            <footer className="bg-muted/50 py-12">
-              <div className="container mx-auto px-4 text-center text-gray-200">
-                <p>Made by Sahil Mishra</p>
+            <footer className="bg-muted/50 py-8 sm:py-12">
+              <div className="container mx-auto px-4 sm:px-6 text-center text-gray-200">
+                <p className="text-sm sm:text-base">Made by Sahil Mishra</p>
               </div>
             </footer>
           </ThemeProvider>

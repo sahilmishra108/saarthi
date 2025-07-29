@@ -220,27 +220,27 @@ export default function JobTracker() {
             Explore job opportunities across multiple platforms and track your applications
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {jobPlatforms.map((platform) => {
               const PlatformIcon = platform.icon;
               return (
                 <div
                   key={platform.name}
                   onClick={() => openJobPlatform(platform)}
-                  className="group cursor-pointer p-6 border border-[--primary]/20 rounded-xl hover:border-[--primary]/40 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-[--background]/50 to-[--card]/50 backdrop-blur-sm"
+                  className="group cursor-pointer p-4 sm:p-6 border border-[--primary]/20 rounded-xl hover:border-[--primary]/40 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-[--background]/50 to-[--card]/50 backdrop-blur-sm"
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-3 sm:gap-4">
                     <div 
-                      className="w-12 h-12 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 flex-shrink-0"
                       style={{ backgroundColor: platform.color }}
                     >
-                      <PlatformIcon className="w-6 h-6 text-white" />
+                      <PlatformIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-[--foreground] group-hover:text-[--accent] transition-colors duration-300">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-[--foreground] group-hover:text-[--accent] transition-colors duration-300 text-sm sm:text-base">
                         {platform.name}
                       </h3>
-                      <p className="text-sm text-[--muted-foreground] mt-1 mb-3">
+                      <p className="text-xs sm:text-sm text-[--muted-foreground] mt-1 mb-3">
                         {platform.description}
                       </p>
                       <div className="flex flex-wrap gap-1">
@@ -254,7 +254,7 @@ export default function JobTracker() {
                         ))}
                       </div>
                     </div>
-                    <ExternalLink className="w-4 h-4 text-[--muted-foreground] group-hover:text-[--accent] transition-colors duration-300" />
+                    <ExternalLink className="w-4 h-4 text-[--muted-foreground] group-hover:text-[--accent] transition-colors duration-300 flex-shrink-0" />
                   </div>
                 </div>
               );
@@ -295,7 +295,7 @@ export default function JobTracker() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-[--muted-foreground] mb-2">Company</label>
                   <Input

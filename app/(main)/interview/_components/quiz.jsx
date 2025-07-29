@@ -91,7 +91,7 @@ export default function Quiz() {
   // Show results if quiz is completed
   if (resultData) {
     return (
-      <div className="mx-2">
+      <div className="mx-2 sm:mx-4">
         <QuizResult result={resultData} onStartNew={startNewQuiz} />
       </div>
     );
@@ -99,12 +99,12 @@ export default function Quiz() {
 
   if (!quizData) {
     return (
-      <Card className="mx-2">
+      <Card className="mx-2 sm:mx-4">
         <CardHeader>
-          <CardTitle>Ready to test your knowledge?</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">Ready to test your knowledge?</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-sm sm:text-base">
             This quiz contains 10 questions specific to your industry and
             skills. Take your time and choose the best answer for each question.
           </p>
@@ -121,40 +121,43 @@ export default function Quiz() {
   const question = quizData[currentQuestion];
 
   return (
-    <Card className="mx-2">
+    <Card className="mx-2 sm:mx-4">
       <CardHeader>
-        <CardTitle>
+        <CardTitle className="text-base sm:text-lg">
           Question {currentQuestion + 1} of {quizData.length}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <p className="text-lg font-medium">{question.question}</p>
+        <p className="text-base sm:text-lg font-medium leading-relaxed">{question.question}</p>
         <RadioGroup
           onValueChange={handleAnswer}
           value={answers[currentQuestion]}
-          className="space-y-2"
+          className="space-y-3"
         >
           {question.options.map((option, index) => (
-            <div key={index} className="flex items-center space-x-2">
-              <RadioGroupItem value={option} id={`option-${index}`} />
-              <Label htmlFor={`option-${index}`}>{option}</Label>
+            <div key={index} className="flex items-start space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+              <RadioGroupItem value={option} id={`option-${index}`} className="mt-1" />
+              <Label htmlFor={`option-${index}`} className="text-sm sm:text-base leading-relaxed cursor-pointer">
+                {option}
+              </Label>
             </div>
           ))}
         </RadioGroup>
 
         {showExplanation && (
           <div className="mt-4 p-4 bg-muted rounded-lg">
-            <p className="font-medium">Explanation:</p>
-            <p className="text-muted-foreground">{question.explanation}</p>
+            <p className="font-medium text-sm sm:text-base">Explanation:</p>
+            <p className="text-muted-foreground text-sm sm:text-base mt-2">{question.explanation}</p>
           </div>
         )}
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex flex-col sm:flex-row gap-3 sm:justify-between">
         {!showExplanation && (
           <Button
             onClick={() => setShowExplanation(true)}
             variant="outline"
             disabled={!answers[currentQuestion]}
+            className="w-full sm:w-auto"
           >
             Show Explanation
           </Button>
@@ -162,7 +165,7 @@ export default function Quiz() {
         <Button
           onClick={handleNext}
           disabled={!answers[currentQuestion] || savingResult}
-          className="ml-auto"
+          className="w-full sm:w-auto sm:ml-auto"
         >
           {savingResult && (
             <BarLoader className="mt-4" width={"100%"} color="gray" />
