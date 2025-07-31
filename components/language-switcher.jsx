@@ -13,9 +13,11 @@ import { languages, defaultLanguage } from "@/lib/i18n";
 
 export default function LanguageSwitcher() {
   const [currentLanguage, setCurrentLanguage] = useState(defaultLanguage);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Load saved language preference
+    setIsMounted(true);
+    // Load saved language preference only after mounting
     const savedLang = localStorage.getItem("saarthi-language");
     if (savedLang && languages[savedLang]) {
       setCurrentLanguage(savedLang);
@@ -24,16 +26,29 @@ export default function LanguageSwitcher() {
 
   const handleLanguageChange = (lang) => {
     setCurrentLanguage(lang);
-    localStorage.setItem("saarthi-language", lang);
-    
-    // Update document direction for RTL languages
-    const direction = languages[lang]?.dir || "ltr";
-    document.documentElement.dir = direction;
-    document.documentElement.lang = lang;
-    
-    // Trigger a custom event for other components to listen to
-    window.dispatchEvent(new CustomEvent("languageChanged", { detail: { language: lang } }));
+    if (isMounted) {
+      localStorage.setItem("saarthi-language", lang);
+      
+      // Update document direction for RTL languages
+      const direction = languages[lang]?.dir || "ltr";
+      document.documentElement.dir = direction;
+      document.documentElement.lang = lang;
+      
+      // Trigger a custom event for other components to listen to
+      window.dispatchEvent(new CustomEvent("languageChanged", { detail: { language: lang } }));
+    }
   };
+
+  // Don't render until mounted to prevent hydration issues
+  if (!isMounted) {
+    return (
+      <Button variant="outline" size="sm" className="flex items-center gap-2">
+        <Globe className="h-4 w-4" />
+        <span className="hidden md:block">{languages[defaultLanguage]?.flag}</span>
+        <span className="hidden lg:block">{languages[defaultLanguage]?.name}</span>
+      </Button>
+    );
+  }
 
   return (
     <DropdownMenu>

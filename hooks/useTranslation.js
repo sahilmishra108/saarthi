@@ -6,9 +6,11 @@ import { defaultLanguage } from "@/lib/i18n";
 
 export function useTranslation() {
   const [currentLanguage, setCurrentLanguage] = useState(defaultLanguage);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Load saved language preference
+    setIsMounted(true);
+    // Load saved language preference only after mounting
     const savedLang = localStorage.getItem("saarthi-language");
     if (savedLang) {
       setCurrentLanguage(savedLang);
@@ -32,8 +34,10 @@ export function useTranslation() {
     currentLanguage,
     setLanguage: (lang) => {
       setCurrentLanguage(lang);
-      localStorage.setItem("saarthi-language", lang);
-      window.dispatchEvent(new CustomEvent("languageChanged", { detail: { language: lang } }));
+      if (isMounted) {
+        localStorage.setItem("saarthi-language", lang);
+        window.dispatchEvent(new CustomEvent("languageChanged", { detail: { language: lang } }));
+      }
     }
   };
 } 

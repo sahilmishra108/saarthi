@@ -151,28 +151,28 @@ const Header = () => {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] sm:w-[320px]">
-                <SheetHeader>
-                  <SheetTitle className="text-left">Menu</SheetTitle>
+              <SheetContent side="right" className="w-[280px] sm:w-[320px] bg-background/95 backdrop-blur-xl border-l border-[--accent]/20">
+                <SheetHeader className="border-b border-[--accent]/10 pb-4">
+                  <SheetTitle className="text-left text-lg font-bold text-[--primary]">Menu</SheetTitle>
                 </SheetHeader>
-                <div className="mt-6 space-y-4">
+                <div className="mt-6 space-y-2">
                   <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full justify-start gap-3 h-12">
-                      <LayoutDashboard className="h-4 w-4" />
-                      {t("header.industryInsights")}
+                    <Button variant="ghost" className="w-full justify-start gap-3 h-12 text-left hover:bg-[--accent]/10">
+                      <LayoutDashboard className="h-4 w-4 text-[--accent]" />
+                      <span className="font-medium">{t("header.industryInsights")}</span>
                     </Button>
                   </Link>
                   
-                  <div className="border-t pt-4">
-                    <h3 className="text-sm font-medium text-muted-foreground mb-3">
+                  <div className="border-t border-[--accent]/10 pt-4 mt-4">
+                    <h3 className="text-sm font-medium text-[--muted-foreground] mb-3 px-3">
                       {t("header.growthTools")}
                     </h3>
-                    <div className="space-y-2">
+                    <div className="space-y-1">
                       {navigationItems.map((item) => (
                         <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
-                          <Button variant="ghost" className="w-full justify-start gap-3 h-12">
-                            <item.icon className="h-4 w-4" />
-                            {item.label}
+                          <Button variant="ghost" className="w-full justify-start gap-3 h-12 text-left hover:bg-[--accent]/10">
+                            <item.icon className="h-4 w-4 text-[--accent]" />
+                            <span className="font-medium">{item.label}</span>
                           </Button>
                         </Link>
                       ))}

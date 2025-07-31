@@ -15,22 +15,34 @@ import {
   Maximize2
 } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslation } from "@/hooks/useTranslation";
+
+// Stable ID generator to prevent hydration issues
+let messageIdCounter = 1;
+const generateMessageId = () => messageIdCounter++;
 
 export default function Chatbot() {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState([
     {
-      id: 1,
+      id: generateMessageId(),
       role: "assistant",
-      content: "Hello! I'm SAARTHI, your AI Career Coach. I can help you with resume building, interview preparation, cover letters, career guidance, and more. What would you like to know?",
+      content: t("chatbot.welcome"),
       timestamp: new Date().toISOString()
     }
   ]);
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Ensure component is mounted before rendering to prevent hydration issues
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -50,7 +62,7 @@ export default function Chatbot() {
     if (!inputMessage.trim() || isLoading) return;
 
     const userMessage = {
-      id: Date.now(),
+      id: generateMessageId(),
       role: "user",
       content: inputMessage.trim(),
       timestamp: new Date().toISOString()
@@ -85,7 +97,7 @@ export default function Chatbot() {
       console.log("Response data:", data);
       
       const assistantMessage = {
-        id: Date.now() + 1,
+        id: generateMessageId(),
         role: "assistant",
         content: data.message || "I'm sorry, I couldn't generate a response right now. Please try again.",
         timestamp: data.timestamp || new Date().toISOString()
@@ -102,7 +114,7 @@ export default function Chatbot() {
       toast.error("Failed to send message. Please try again.");
       
       const errorMessage = {
-        id: Date.now() + 1,
+        id: generateMessageId(),
         role: "assistant",
         content: "I'm sorry, I'm having trouble responding right now. Please try again in a moment.",
         timestamp: new Date().toISOString()
@@ -124,46 +136,51 @@ export default function Chatbot() {
   const clearChat = () => {
     setMessages([
       {
-        id: 1,
+        id: generateMessageId(),
         role: "assistant",
-        content: "Hello! I'm SAARTHI, your AI Career Coach. I can help you with resume building, interview preparation, cover letters, career guidance, and more. What would you like to know?",
+        content: t("chatbot.welcome"),
         timestamp: new Date().toISOString()
       }
     ]);
   };
 
   const quickQuestions = [
-    "How to write a strong resume?",
-    "Common interview questions?",
-    "Tips for cover letters?",
-    "Career change advice?",
-    "Salary negotiation tips?"
+    t("chatbot.question1"),
+    t("chatbot.question2"),
+    t("chatbot.question3"),
+    t("chatbot.question4"),
+    t("chatbot.question5")
   ];
+
+  // Don't render until mounted to prevent hydration issues
+  if (!isMounted) {
+    return null;
+  }
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
         <Button
           onClick={() => setIsOpen(true)}
-          className="bg-gradient-to-r from-[--primary] to-[--accent] text-white hover:from-[--accent] hover:to-[--primary] shadow-lg hover:shadow-[0_0_20px_0_rgba(255,215,0,0.25)] transition-all duration-300 rounded-full w-14 h-14 border border-[--accent]/20"
+          className="bg-gradient-to-r from-[--primary] to-[--accent] text-white hover:from-[--accent] hover:to-[--primary] shadow-lg hover:shadow-[0_0_20px_0_rgba(255,215,0,0.25)] transition-all duration-300 rounded-full w-12 h-12 sm:w-14 sm:h-14 border border-[--accent]/20"
         >
-          <MessageCircle className="h-6 w-6" />
+          <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />
         </Button>
       </div>
     );
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <Card className="w-96 h-[500px] bg-[--background]/95 backdrop-blur-xl border border-[--accent]/20 shadow-2xl">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+      <Card className="w-[calc(100vw-2rem)] sm:w-80 md:w-96 h-[calc(100vh-8rem)] sm:h-[500px] bg-[--background]/95 backdrop-blur-xl border border-[--accent]/20 shadow-2xl">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[--primary] via-[--primary]/90 to-[--accent] text-white p-4 rounded-t-lg flex items-center justify-between border-b border-[--accent]/20">
+        <div className="bg-gradient-to-r from-[--primary] via-[--primary]/90 to-[--accent] text-white p-3 sm:p-4 rounded-t-lg flex items-center justify-between border-b border-[--accent]/20">
           <div className="flex items-center space-x-2">
             <div className="bg-white/10 p-1.5 rounded-lg">
-              <Bot className="h-4 w-4" />
+              <Bot className="h-3 w-3 sm:h-4 sm:w-4" />
             </div>
             <div>
-              <span className="font-bold text-lg gradient-title">SAARTHI</span>
+              <span className="font-bold text-base sm:text-lg gradient-title">{t("header.brand")}</span>
               <p className="text-xs text-white/80">AI Career Coach</p>
             </div>
           </div>
@@ -172,17 +189,17 @@ export default function Chatbot() {
               variant="ghost"
               size="sm"
               onClick={() => setIsMinimized(!isMinimized)}
-              className="text-white hover:bg-white/20 h-8 w-8 p-0 transition-all duration-200"
+              className="text-white hover:bg-white/20 h-7 w-7 sm:h-8 sm:w-8 p-0 transition-all duration-200"
             >
-              {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+              {isMinimized ? <Maximize2 className="h-3 w-3 sm:h-4 sm:w-4" /> : <Minimize2 className="h-3 w-3 sm:h-4 sm:w-4" />}
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(false)}
-              className="text-white hover:bg-white/20 h-8 w-8 p-0 transition-all duration-200"
+              className="text-white hover:bg-white/20 h-7 w-7 sm:h-8 sm:w-8 p-0 transition-all duration-200"
             >
-              <X className="h-4 w-4" />
+              <X className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
         </div>
@@ -190,14 +207,14 @@ export default function Chatbot() {
         {!isMinimized && (
           <>
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 h-[350px] bg-gradient-to-b from-[--background]/50 to-[--background]/30">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 h-[calc(100vh-12rem)] sm:h-[350px] bg-gradient-to-b from-[--background]/50 to-[--background]/30">
               {messages.map((message) => (
                 <div
                   key={message.id}
                   className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-lg p-3 shadow-sm border ${
+                    className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-2 sm:p-3 shadow-sm border ${
                       message.role === "user"
                         ? "bg-gradient-to-r from-[--accent] to-[--accent]/90 text-[--primary] border-[--accent]/30"
                         : "bg-[--card] text-[--card-foreground] border-[--accent]/10"
@@ -205,13 +222,13 @@ export default function Chatbot() {
                   >
                     <div className="flex items-start space-x-2">
                       {message.role === "assistant" && (
-                        <div className="bg-[--accent]/20 p-1 rounded-full">
+                        <div className="bg-[--accent]/20 p-1 rounded-full flex-shrink-0">
                           <Bot className="h-3 w-3 text-[--accent]" />
                         </div>
                       )}
-                      <div className="flex-1">
-                        <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
-                        <p className="text-xs opacity-60 mt-2">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs sm:text-sm whitespace-pre-wrap leading-relaxed break-words">{message.content}</p>
+                        <p className="text-xs opacity-60 mt-1 sm:mt-2">
                           {new Date(message.timestamp).toLocaleTimeString([], {
                             hour: "2-digit",
                             minute: "2-digit"
@@ -219,7 +236,7 @@ export default function Chatbot() {
                         </p>
                       </div>
                       {message.role === "user" && (
-                        <div className="bg-[--primary]/20 p-1 rounded-full">
+                        <div className="bg-[--primary]/20 p-1 rounded-full flex-shrink-0">
                           <User className="h-3 w-3 text-[--primary]" />
                         </div>
                       )}
@@ -230,13 +247,13 @@ export default function Chatbot() {
               
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-[--card] text-[--card-foreground] rounded-lg p-3 max-w-[80%] border border-[--accent]/10 shadow-sm">
+                  <div className="bg-[--card] text-[--card-foreground] rounded-lg p-2 sm:p-3 max-w-[85%] sm:max-w-[80%] border border-[--accent]/10 shadow-sm">
                     <div className="flex items-center space-x-2">
                       <div className="bg-[--accent]/20 p-1 rounded-full">
                         <Bot className="h-3 w-3 text-[--accent]" />
                       </div>
-                      <Loader2 className="h-4 w-4 animate-spin text-[--accent]" />
-                      <span className="text-sm">SAARTHI is typing...</span>
+                      <Loader2 className="h-3 w-3 sm:h-4 sm:w-4 animate-spin text-[--accent]" />
+                      <span className="text-xs sm:text-sm">{t("chatbot.typing")}</span>
                     </div>
                   </div>
                 </div>
@@ -245,12 +262,10 @@ export default function Chatbot() {
               <div ref={messagesEndRef} />
             </div>
 
-
-
             {/* Quick Questions */}
             {messages.length === 1 && (
-              <div className="px-4 pb-2 bg-gradient-to-r from-[--background]/30 to-[--background]/10 border-t border-[--accent]/10">
-                <p className="text-xs text-[--muted-foreground] mb-2 font-medium">Quick questions:</p>
+              <div className="px-3 sm:px-4 pb-2 bg-gradient-to-r from-[--background]/30 to-[--background]/10 border-t border-[--accent]/10">
+                <p className="text-xs text-[--muted-foreground] mb-2 font-medium">{t("chatbot.quickQuestions")}</p>
                 <div className="flex flex-wrap gap-1">
                   {quickQuestions.map((question, index) => (
                     <Button
@@ -268,26 +283,26 @@ export default function Chatbot() {
             )}
 
             {/* Input */}
-            <div className="p-4 border-t border-[--accent]/10 bg-gradient-to-r from-[--background]/50 to-[--background]/30">
+            <div className="p-3 sm:p-4 border-t border-[--accent]/10 bg-gradient-to-r from-[--background]/50 to-[--background]/30">
               <div className="flex space-x-2">
                 <Input
                   ref={inputRef}
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask me anything about your career..."
-                  className="flex-1 bg-[--card] border-[--accent]/20 text-[--foreground] placeholder:text-[--muted-foreground] focus:border-[--accent]/40 focus:ring-[--accent]/20"
+                  placeholder={t("chatbot.placeholder")}
+                  className="flex-1 bg-[--card] border-[--accent]/20 text-[--foreground] placeholder:text-[--muted-foreground] focus:border-[--accent]/40 focus:ring-[--accent]/20 text-xs sm:text-sm"
                   disabled={isLoading}
                 />
                 <Button
                   onClick={handleSendMessage}
                   disabled={!inputMessage.trim() || isLoading}
-                  className="bg-gradient-to-r from-[--accent] to-[--accent]/90 text-[--primary] hover:from-[--accent]/90 hover:to-[--accent] shadow-sm hover:shadow-[0_0_10px_0_rgba(255,215,0,0.3)] transition-all duration-200"
+                  className="bg-gradient-to-r from-[--accent] to-[--accent]/90 text-[--primary] hover:from-[--accent]/90 hover:to-[--accent] shadow-sm hover:shadow-[0_0_10px_0_rgba(255,215,0,0.3)] transition-all duration-200 h-9 sm:h-10 w-9 sm:w-10 p-0"
                 >
                   {isLoading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
                   ) : (
-                    <Send className="h-4 w-4" />
+                    <Send className="h-3 w-3 sm:h-4 sm:w-4" />
                   )}
                 </Button>
               </div>
@@ -300,7 +315,7 @@ export default function Chatbot() {
                   onClick={clearChat}
                   className="text-xs text-[--muted-foreground] hover:text-[--foreground] mt-2 h-6 hover:bg-[--accent]/10 transition-all duration-200"
                 >
-                  Clear chat
+                  {t("chatbot.clearChat")}
                 </Button>
               )}
             </div>

@@ -4,13 +4,15 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, BarChart2, Briefcase, UserCheck, ShieldCheck, Menu, X, Mail, Phone, MapPin, Twitter, Linkedin, Facebook, Instagram, Github } from "lucide-react";
+import { ArrowRight, BarChart2, Briefcase, UserCheck, ShieldCheck, Menu, X, Mail, Phone, MapPin, Twitter, Linkedin, Facebook, Instagram, Github, Star, Users, TrendingUp, Award } from "lucide-react";
 import AOSInit from "@/components/AOSInit";
 import Image from "next/image";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import QuoteOfTheDay from "@/components/quote-of-the-day";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function LandingPage() {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -53,45 +55,45 @@ export default function LandingPage() {
       <div className="grid-background fixed inset-0 z-0 parallax-bg" />
       
       {/* HEADER */}
-      <header className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[--background]/80 border-b border-[--accent]/20 shadow-lg header-scroll transition-all duration-300 ${isScrolled ? 'scrolled' : ''}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[--background]/90 border-b border-[--accent]/20 shadow-lg header-scroll transition-all duration-500 ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container mx-auto px-6 md:px-12">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center shadow-lg group-hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
-                <span className="text-[--primary-foreground] font-bold text-xl">S</span>
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center shadow-lg group-hover:shadow-[0_0_30px_0_rgba(255,215,0,0.4)] transition-all duration-500 transform group-hover:scale-110">
+                <span className="text-[--primary-foreground] font-bold text-2xl">S</span>
               </div>
-                              <span className="text-2xl font-bold text-[--primary] group-hover:text-[--accent] transition-colors duration-300">SAARTHI</span>
+              <span className="text-3xl font-bold text-[--primary] group-hover:text-[--accent] transition-colors duration-500 tracking-tight">{t("header.brand")}</span>
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <Link href="#features" className="text-[--foreground] hover:text-[--accent] font-medium transition-colors duration-300">Features</Link>
-              <Link href="#quote" className="text-[--foreground] hover:text-[--accent] font-medium transition-colors duration-300">Quote</Link>
-              <Link href="#analytics" className="text-[--foreground] hover:text-[--accent] font-medium transition-colors duration-300">Analytics</Link>
-              <Link href="#testimonials" className="text-[--foreground] hover:text-[--accent] font-medium transition-colors duration-300">Testimonials</Link>
+              <Link href="#features" className="text-[--foreground] hover:text-[--accent] font-medium transition-all duration-300 hover:scale-105">Features</Link>
+              <Link href="#quote" className="text-[--foreground] hover:text-[--accent] font-medium transition-all duration-300 hover:scale-105">Quote</Link>
+              <Link href="#analytics" className="text-[--foreground] hover:text-[--accent] font-medium transition-all duration-300 hover:scale-105">Analytics</Link>
+              <Link href="#testimonials" className="text-[--foreground] hover:text-[--accent] font-medium transition-all duration-300 hover:scale-105">Testimonials</Link>
             </nav>
 
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center space-x-4">
               <SignedOut>
                 <SignInButton>
-                  <Button variant="ghost" className="text-[--foreground] hover:text-[--accent] hover:bg-[--accent]/10 font-medium">
-                    Sign In
+                  <Button variant="ghost" className="text-[--foreground] hover:text-[--accent] hover:bg-[--accent]/10 font-medium transition-all duration-300">
+                    {t("header.signIn")}
                   </Button>
                 </SignInButton>
               </SignedOut>
               <SignedIn>
                 <Link href="/dashboard">
-                  <Button className="bg-[--accent] text-[--primary] hover:bg-[--primary-foreground] shadow-lg hover:shadow-[0_0_20px_0_rgba(255,215,0,0.25)] transition-all duration-300 font-bold">
-                    Dashboard
+                  <Button className="bg-gradient-to-r from-[--accent] to-[--primary] text-[--primary] hover:from-[--primary] hover:to-[--accent] shadow-lg hover:shadow-[0_0_30px_0_rgba(255,215,0,0.3)] transition-all duration-500 font-bold transform hover:scale-105">
+                    {t("header.industryInsights")}
                   </Button>
                 </Link>
               </SignedIn>
               <SignedOut>
                 <Link href="/dashboard">
-                  <Button className="bg-[--accent] text-[--primary] hover:bg-[--primary-foreground] shadow-lg hover:shadow-[0_0_20px_0_rgba(255,215,0,0.25)] transition-all duration-300 font-bold">
-                    Get Started
+                  <Button className="bg-gradient-to-r from-[--accent] to-[--primary] text-[--primary] hover:from-[--primary] hover:to-[--accent] shadow-lg hover:shadow-[0_0_30px_0_rgba(255,215,0,0.3)] transition-all duration-500 font-bold transform hover:scale-105">
+                    {t("home.hero.cta")}
                   </Button>
                 </Link>
               </SignedOut>
@@ -99,7 +101,7 @@ export default function LandingPage() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2 rounded-lg text-[--foreground] hover:text-[--accent] hover:bg-[--accent]/10 transition-colors duration-300"
+              className="md:hidden p-2 rounded-lg text-[--foreground] hover:text-[--accent] hover:bg-[--accent]/10 transition-all duration-300"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -110,29 +112,29 @@ export default function LandingPage() {
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t border-[--accent]/20">
               <nav className="flex flex-col space-y-4">
-                <Link href="#features" className="text-[--foreground] hover:text-[--accent] font-medium transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>Features</Link>
-                <Link href="#quote" className="text-[--foreground] hover:text-[--accent] font-medium transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>Quote</Link>
-                <Link href="#analytics" className="text-[--foreground] hover:text-[--accent] font-medium transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>Analytics</Link>
-                <Link href="#testimonials" className="text-[--foreground] hover:text-[--accent] font-medium transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>Testimonials</Link>
+                <Link href="#features" className="text-[--foreground] hover:text-[--accent] font-medium transition-all duration-300" onClick={() => setIsMenuOpen(false)}>{t("home.features.title")}</Link>
+                <Link href="#quote" className="text-[--foreground] hover:text-[--accent] font-medium transition-all duration-300" onClick={() => setIsMenuOpen(false)}>Quote</Link>
+                <Link href="#analytics" className="text-[--foreground] hover:text-[--accent] font-medium transition-all duration-300" onClick={() => setIsMenuOpen(false)}>{t("home.analytics.title")}</Link>
+                <Link href="#testimonials" className="text-[--foreground] hover:text-[--accent] font-medium transition-all duration-300" onClick={() => setIsMenuOpen(false)}>{t("home.testimonials.title")}</Link>
                 <div className="flex flex-col space-y-2 pt-4 border-t border-[--accent]/20">
                   <SignedOut>
                     <SignInButton>
-                      <Button variant="ghost" className="w-full text-[--foreground] hover:text-[--accent] hover:bg-[--accent]/10 font-medium justify-start">
-                        Sign In
+                      <Button variant="ghost" className="w-full text-[--foreground] hover:text-[--accent] hover:bg-[--accent]/10 font-medium justify-start transition-all duration-300">
+                        {t("header.signIn")}
                       </Button>
                     </SignInButton>
                   </SignedOut>
                   <SignedIn>
                     <Link href="/dashboard">
-                      <Button className="w-full bg-[--accent] text-[--primary] hover:bg-[--primary-foreground] shadow-lg font-bold">
-                        Dashboard
+                      <Button className="w-full bg-gradient-to-r from-[--accent] to-[--primary] text-[--primary] hover:from-[--primary] hover:to-[--accent] shadow-lg font-bold transition-all duration-300">
+                        {t("header.industryInsights")}
                       </Button>
                     </Link>
                   </SignedIn>
                   <SignedOut>
                     <Link href="/dashboard">
-                      <Button className="w-full bg-[--accent] text-[--primary] hover:bg-[--primary-foreground] shadow-lg font-bold">
-                        Get Started
+                      <Button className="w-full bg-gradient-to-r from-[--accent] to-[--primary] text-[--primary] hover:from-[--primary] hover:to-[--accent] shadow-lg font-bold transition-all duration-300">
+                        {t("home.hero.cta")}
                       </Button>
                     </Link>
                   </SignedOut>
@@ -144,66 +146,102 @@ export default function LandingPage() {
       </header>
 
       {/* HERO SECTION */}
-      <section className="w-full min-h-[60vh] flex items-center bg-background relative z-10 pt-16 sm:pt-20 md:pt-24 scroll-fade-in">
+      <section className="w-full min-h-[80vh] flex items-center bg-background relative z-10 pt-16 sm:pt-20 md:pt-24 scroll-fade-in">
         <div className="container mx-auto px-4 sm:px-6 md:px-12 flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20 py-16 sm:py-20 md:py-28 max-w-7xl">
           <div className="flex-1 text-center lg:text-left" data-aos="fade-right">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 sm:mb-8 text-center lg:text-left leading-tight tracking-tight text-[--primary]" style={{letterSpacing: '-0.02em', lineHeight: '1.1'}}>
-              Accelerate Your <span className="text-[--accent]">Career</span> with <span className="text-[--accent]">AI</span>
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-[--muted-foreground] mb-8 sm:mb-10 max-w-2xl mx-auto lg:mx-0 text-center lg:text-left font-normal" style={{lineHeight: '1.5'}}>
-              The executive platform for modern professionals: AI-powered coaching, analytics, and job search mastery.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-6 justify-center lg:justify-start">
+                         <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/20 to-yellow-500/20 border border-yellow-400/30 text-yellow-300 text-sm font-medium mb-6">
+               <Star className="w-4 h-4 mr-2" />
+               Trusted by 10,000+ professionals worldwide
+             </div>
+                         <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold mb-6 sm:mb-8 text-center lg:text-left leading-tight tracking-tight bg-gradient-to-r from-white via-blue-100 to-yellow-200 bg-clip-text text-transparent" style={{letterSpacing: '-0.02em', lineHeight: '1.1'}}>
+               {t("home.hero.title")}
+             </h1>
+             <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-8 sm:mb-10 max-w-3xl mx-auto lg:mx-0 text-center lg:text-left font-normal leading-relaxed" style={{lineHeight: '1.6'}}>
+               {t("home.hero.subtitle")}
+             </p>
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-8 justify-center lg:justify-start">
               <SignedIn>
                 <Link href="/dashboard">
-                  <Button size="lg" className="px-8 sm:px-12 py-3 sm:py-4 text-lg sm:text-xl bg-[--accent] text-[--primary] font-bold shadow-lg hover:shadow-[0_0_32px_0_rgba(255,215,0,0.25)] hover:bg-[--primary-foreground] transition rounded-full">
-                    Go to Dashboard <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
+                  <Button size="lg" className="px-10 sm:px-12 py-4 sm:py-5 text-lg sm:text-xl bg-gradient-to-r from-[--accent] to-[--primary] text-[--primary] font-bold shadow-xl hover:shadow-[0_0_40px_0_rgba(255,215,0,0.3)] hover:from-[--primary] hover:to-[--accent] transition-all duration-500 rounded-full transform hover:scale-105">
+                    {t("header.industryInsights")} <ArrowRight className="ml-3 h-6 w-6" />
                   </Button>
                 </Link>
               </SignedIn>
               <SignedOut>
                 <SignInButton>
-                  <Button size="lg" className="px-8 sm:px-12 py-3 sm:py-4 text-lg sm:text-xl bg-[--accent] text-[--primary] font-bold shadow-lg hover:shadow-[0_0_32px_0_rgba(255,215,0,0.25)] hover:bg-[--primary-foreground] transition rounded-full">
-                    Get Started <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
+                  <Button size="lg" className="px-10 sm:px-12 py-4 sm:py-5 text-lg sm:text-xl bg-gradient-to-r from-[--accent] to-[--primary] text-[--primary] font-bold shadow-xl hover:shadow-[0_0_40px_0_rgba(255,215,0,0.3)] hover:from-[--primary] hover:to-[--accent] transition-all duration-500 rounded-full transform hover:scale-105">
+                    {t("home.hero.cta")} <ArrowRight className="ml-3 h-6 w-6" />
                   </Button>
                 </SignInButton>
               </SignedOut>
               <Link href="#features">
-                <Button size="lg" variant="outline" className="px-8 sm:px-12 py-3 sm:py-4 text-lg sm:text-xl border-[--accent] text-[--accent] font-bold rounded-full hover:bg-[--accent]/10 transition">
+                <Button size="lg" variant="outline" className="px-10 sm:px-12 py-4 sm:py-5 text-lg sm:text-xl border-2 border-[--accent] text-[--accent] font-bold rounded-full hover:bg-[--accent]/10 hover:border-[--accent]/60 transition-all duration-300 transform hover:scale-105">
                   Learn More
                 </Button>
               </Link>
             </div>
+                         <div className="flex items-center justify-center lg:justify-start mt-8 space-x-6 text-sm text-gray-400">
+               <div className="flex items-center">
+                 <Users className="w-4 h-4 mr-2 text-yellow-400" />
+                 <span>10K+ Users</span>
+               </div>
+               <div className="flex items-center">
+                 <TrendingUp className="w-4 h-4 mr-2 text-yellow-400" />
+                 <span>95% Success Rate</span>
+               </div>
+               <div className="flex items-center">
+                 <Award className="w-4 h-4 mr-2 text-yellow-400" />
+                 <span>Industry Leader</span>
+               </div>
+             </div>
           </div>
-          <div className="flex-1 flex justify-center items-center relative w-full max-w-lg lg:max-w-none" data-aos="fade-left">
-            <Image src="/banner.png" width={520} height={340} alt="Professional Banner" className="rounded-2xl sm:rounded-3xl shadow-2xl border object-cover w-full h-auto" priority />
-          </div>
+                     <div className="flex-1 flex justify-center items-center relative w-full max-w-xl lg:max-w-2xl xl:max-w-3xl" data-aos="fade-left">
+             <div className="relative">
+               <div className="absolute inset-0 bg-gradient-to-r from-[--accent]/20 to-[--primary]/20 rounded-[2rem] lg:rounded-[3rem] xl:rounded-[4rem] blur-3xl transform scale-110"></div>
+               <Image 
+                 src="/banner.png" 
+                 width={800} 
+                 height={600} 
+                 alt="Professional Banner" 
+                 className="relative rounded-[2rem] lg:rounded-[3rem] xl:rounded-[4rem] shadow-2xl border-2 border-[--accent]/30 object-cover w-full h-auto transform hover:scale-105 transition-all duration-500 hover:shadow-[0_25px_50px_-12px_rgba(255,215,0,0.25)]" 
+                 priority 
+               />
+             </div>
+           </div>
         </div>
       </section>
 
       {/* FEATURES GRID */}
-      <section id="features" className="w-full py-12 sm:py-16 md:py-20 bg-background scroll-fade-in" data-aos="fade-up">
+      <section id="features" className="w-full py-20 sm:py-24 md:py-32 bg-background scroll-fade-in" data-aos="fade-up">
         <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12 max-w-6xl mx-auto">
-            <FeatureCard icon={<BarChart2 className="w-8 h-8 sm:w-10 sm:h-10" />} title="AI Analytics" desc="Track your growth and benchmark your progress." dataAosDelay={100} />
-            <FeatureCard icon={<Briefcase className="w-8 h-8 sm:w-10 sm:h-10" />} title="Smart Job Search" desc="Find the best roles, tailored to your skills." dataAosDelay={200} />
-            <FeatureCard icon={<UserCheck className="w-8 h-8 sm:w-10 sm:h-10" />} title="Interview Mastery" desc="Practice with real questions and instant feedback." dataAosDelay={300} />
-            <FeatureCard icon={<ShieldCheck className="w-8 h-8 sm:w-10 sm:h-10" />} title="Secure & Private" desc="Your data is encrypted and always yours." dataAosDelay={400} />
+                     <div className="text-center mb-16">
+             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-6">
+               {t("home.features.title")}
+             </h2>
+             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+               Everything you need to accelerate your career growth and achieve your professional goals
+             </p>
+           </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 max-w-6xl mx-auto">
+            <FeatureCard icon={<BarChart2 className="w-10 h-10" />} title={t("home.features.analytics")} desc="Advanced analytics and insights to track your career progress and identify growth opportunities." dataAosDelay={100} />
+            <FeatureCard icon={<Briefcase className="w-10 h-10" />} title={t("home.features.resume")} desc="AI-powered resume builder that creates compelling, ATS-optimized resumes tailored to your industry." dataAosDelay={200} />
+            <FeatureCard icon={<UserCheck className="w-10 h-10" />} title={t("home.features.interview")} desc="Comprehensive interview preparation with real-time feedback and personalized coaching." dataAosDelay={300} />
+            <FeatureCard icon={<ShieldCheck className="w-10 h-10" />} title="Enterprise Security" desc="Bank-level security with end-to-end encryption to protect your sensitive career data." dataAosDelay={400} />
           </div>
         </div>
       </section>
 
       {/* QUOTE OF THE DAY */}
-      <section id="quote" className="w-full py-16 bg-background scroll-fade-in" data-aos="fade-up">
-        <div className="container mx-auto px-6 md:px-12 max-w-4xl">
-          <div className="text-center mb-8" data-aos="fade-up">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[--primary] mb-4">
-              Daily <span className="text-[--accent]">Inspiration</span>
-            </h2>
-            <p className="text-lg text-[--muted-foreground]">
-              Start your day with motivation and wisdom
-            </p>
-          </div>
+      <section id="quote" className="w-full py-20 bg-background scroll-fade-in" data-aos="fade-up">
+        <div className="container mx-auto px-6 md:px-12 max-w-5xl">
+                     <div className="text-center mb-12" data-aos="fade-up">
+             <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-6">
+               Daily <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">Inspiration</span>
+             </h2>
+             <p className="text-xl text-gray-300">
+               Start your day with motivation and wisdom from industry leaders
+             </p>
+           </div>
           <div data-aos="fade-up" data-aos-delay="200">
             <QuoteOfTheDay />
           </div>
@@ -211,70 +249,93 @@ export default function LandingPage() {
       </section>
 
       {/* VISUAL ANALYTICS WIDGETS */}
-      <section id="analytics" className="w-full py-12 sm:py-16 md:py-20 bg-background scroll-fade-in" data-aos="fade-up">
-        <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl flex flex-col lg:flex-row gap-8 sm:gap-12 items-center justify-center">
-          <Card className="bg-gradient-to-br from-[--primary]/80 to-[--background] border-none shadow-2xl rounded-2xl sm:rounded-3xl p-8 sm:p-10 md:p-12 flex-1 flex flex-col items-center justify-center w-full max-w-sm lg:max-w-[360px] transition-transform duration-300 hover:scale-105" style={{boxShadow:'0 8px 32px 0 rgba(31, 38, 135, 0.25)'}} data-aos="zoom-in">
-            <CardContent className="flex flex-col items-center">
-              <DonutChart percent={82} label="Profile Completion" />
-              <span className="text-base sm:text-lg font-semibold text-[--muted-foreground] mt-4">Profile Completion</span>
-              <span className="text-3xl sm:text-4xl font-extrabold text-[--accent] mt-1 tracking-tight">82%</span>
-            </CardContent>
-          </Card>
-          <div className="flex flex-col gap-6 sm:gap-8 flex-1 w-full max-w-sm lg:max-w-none">
-            <KPIWidget icon={<BarChart2 className="w-6 h-6 sm:w-7 sm:h-7 text-[--primary-foreground]" />} label="Applications Sent" value="37" accentBg="from-[--accent] to-[--primary]" dataAosDelay={100} />
-            <div className="h-2" />
-            <KPIWidget icon={<UserCheck className="w-6 h-6 sm:w-7 sm:h-7 text-[--primary-foreground]" />} label="Interview Success" value="78%" accentBg="from-[--accent] to-[--primary]" dataAosDelay={200} />
+      <section id="analytics" className="w-full py-20 sm:py-24 md:py-32 bg-background scroll-fade-in" data-aos="fade-up">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl">
+                     <div className="text-center mb-16">
+             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-6">
+               {t("home.analytics.title")}
+             </h2>
+             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+               Real-time insights and data-driven recommendations to optimize your career strategy
+             </p>
+           </div>
+          <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 items-center justify-center">
+            <Card className="bg-gradient-to-br from-[--primary]/90 to-[--background] border-none shadow-2xl rounded-3xl p-10 sm:p-12 md:p-16 flex-1 flex flex-col items-center justify-center w-full max-w-sm lg:max-w-[400px] transition-all duration-500 hover:scale-105 hover:shadow-[0_20px_60px_0_rgba(31,38,135,0.3)]" style={{boxShadow:'0 20px 60px 0 rgba(31, 38, 135, 0.25)'}} data-aos="zoom-in">
+              <CardContent className="flex flex-col items-center">
+                <DonutChart percent={82} label="Profile Completion" />
+                <span className="text-lg sm:text-xl font-semibold text-[--muted-foreground] mt-6">Profile Completion</span>
+                <span className="text-4xl sm:text-5xl font-extrabold text-[--accent] mt-2 tracking-tight">82%</span>
+              </CardContent>
+            </Card>
+            <div className="flex flex-col gap-8 sm:gap-10 flex-1 w-full max-w-sm lg:max-w-none">
+              <KPIWidget icon={<BarChart2 className="w-8 h-8 sm:w-9 sm:h-9 text-[--primary-foreground]" />} label="Applications Sent" value="37" accentBg="from-[--accent] to-[--primary]" dataAosDelay={100} />
+              <div className="h-4" />
+              <KPIWidget icon={<UserCheck className="w-8 h-8 sm:w-9 sm:h-9 text-[--primary-foreground]" />} label="Interview Success" value="78%" accentBg="from-[--accent] to-[--primary]" dataAosDelay={200} />
+            </div>
           </div>
         </div>
       </section>
 
       {/* TESTIMONIALS */}
-      <section id="testimonials" className="w-full py-10 sm:py-12 md:py-16 bg-background scroll-fade-in" data-aos="fade-up">
-        <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-3xl flex flex-col items-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
+      <section id="testimonials" className="w-full py-20 sm:py-24 md:py-32 bg-background scroll-fade-in" data-aos="fade-up">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-6xl">
+                     <div className="text-center mb-16">
+             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-6">
+               {t("home.testimonials.title")}
+             </h2>
+             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+               Hear from professionals who have transformed their careers with SAARTHI
+             </p>
+           </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <TestimonialCard
               image="https://randomuser.me/api/portraits/men/32.jpg"
               quote="This platform gave me the edge I needed. The analytics and AI coaching are a game-changer for my career."
               name="Alex Johnson"
               role="Senior Product Manager, Microsoft"
               delay={100}
-              small
             />
             <TestimonialCard
               image="https://randomuser.me/api/portraits/women/44.jpg"
               quote="The resume builder and interview prep tools are top-notch. I landed my dream job in weeks!"
               name="Priya Patel"
               role="Marketing Director, Global Corp"
+              delay={200}
+            />
+            <TestimonialCard
+              image="https://randomuser.me/api/portraits/men/67.jpg"
+              quote="SAARTHI's career insights helped me make informed decisions and accelerate my professional growth."
+              name="David Chen"
+              role="Software Engineer, Google"
               delay={300}
-              small
             />
           </div>
         </div>
       </section>
 
       {/* FINAL CTA */}
-      <section className="w-full px-4 sm:px-6 md:px-12 py-16 sm:py-20 md:py-24 relative scroll-fade-in" data-aos="fade-up">
-        <div className="relative z-10 w-full max-w-4xl mx-auto">
-          <div className="backdrop-blur-xl bg-gradient-to-br from-[--background]/95 to-[--card]/95 border border-[--accent]/20 shadow-xl rounded-2xl p-8 sm:p-12 md:p-16">
-            <div className="text-center space-y-6 sm:space-y-8">
-              <div className="space-y-3 sm:space-y-4">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[--foreground] leading-tight">
-                  Ready to accelerate your career?
-                </h2>
-                <p className="text-base sm:text-lg text-[--muted-foreground] max-w-2xl mx-auto leading-relaxed">
-                  Join top professionals using AI to get ahead.
-                </p>
+      <section className="w-full px-4 sm:px-6 md:px-12 py-20 sm:py-24 md:py-32 relative scroll-fade-in" data-aos="fade-up">
+        <div className="relative z-10 w-full max-w-5xl mx-auto">
+          <div className="backdrop-blur-xl bg-gradient-to-br from-[--background]/95 to-[--card]/95 border border-[--accent]/20 shadow-2xl rounded-3xl p-10 sm:p-12 md:p-16">
+            <div className="text-center space-y-8 sm:space-y-10">
+              <div className="space-y-4 sm:space-y-6">
+                                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
+                   {t("home.cta.title")}
+                 </h2>
+                 <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                   {t("home.cta.subtitle")}
+                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
                 <SignedIn>
                   <Link href="/dashboard" passHref>
                     <Button
                       size="lg"
-                      className="h-11 px-6 sm:px-8 bg-[--accent] text-[--primary] font-semibold hover:bg-[--primary-foreground] transition-all duration-300 shadow-sm hover:shadow-md"
+                      className="h-14 px-8 sm:px-10 bg-gradient-to-r from-[--accent] to-[--primary] text-[--primary] font-bold hover:from-[--primary] hover:to-[--accent] transition-all duration-500 shadow-xl hover:shadow-[0_0_40px_0_rgba(255,215,0,0.3)] transform hover:scale-105 rounded-full"
                     >
-                      Go to Dashboard
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      {t("header.industryInsights")}
+                      <ArrowRight className="ml-3 h-5 w-5" />
                     </Button>
                   </Link>
                 </SignedIn>
@@ -282,10 +343,10 @@ export default function LandingPage() {
                   <SignInButton>
                     <Button
                       size="lg"
-                      className="h-11 px-6 sm:px-8 bg-[--accent] text-[--primary] font-semibold hover:bg-[--primary-foreground] transition-all duration-300 shadow-sm hover:shadow-md"
+                      className="h-14 px-8 sm:px-10 bg-gradient-to-r from-[--accent] to-[--primary] text-[--primary] font-bold hover:from-[--primary] hover:to-[--accent] transition-all duration-500 shadow-xl hover:shadow-[0_0_40px_0_rgba(255,215,0,0.3)] transform hover:scale-105 rounded-full"
                     >
-                      Get Started
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      {t("home.cta.button")}
+                      <ArrowRight className="ml-3 h-5 w-5" />
                     </Button>
                   </SignInButton>
                 </SignedOut>
@@ -296,89 +357,89 @@ export default function LandingPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="w-full bg-gradient-to-b from-[--background]/80 to-[--card]/90 border-t border-[--accent]/30 backdrop-blur-xl relative z-10 scroll-fade-in">
-        <div className="container mx-auto px-4 sm:px-6 md:px-12 py-12 sm:py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+      <footer className="w-full bg-gradient-to-b from-[--background]/90 to-[--card]/90 border-t border-[--accent]/30 backdrop-blur-xl relative z-10 scroll-fade-in">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 py-16 sm:py-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12">
             {/* Company Info */}
-            <div className="space-y-4 sm:space-y-6">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center shadow-lg">
-                  <span className="text-[--primary-foreground] font-bold text-lg sm:text-xl">S</span>
+            <div className="space-y-6 sm:space-y-8">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center shadow-lg">
+                  <span className="text-[--primary-foreground] font-bold text-2xl">S</span>
                 </div>
-                <span className="text-xl sm:text-2xl font-bold text-[--primary]">SAARTHI</span>
+                <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">{t("header.brand")}</span>
               </div>
-              <p className="text-sm sm:text-base text-[--muted-foreground] leading-relaxed max-w-xs">
-                The executive platform for modern professionals. AI-powered coaching, analytics, and job search mastery.
-              </p>
-              <div className="flex space-x-3 sm:space-x-4">
-                <Link href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
-                  <Twitter className="w-4 h-4 sm:w-5 sm:h-5" />
+                             <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-sm">
+                 {t("home.hero.subtitle")}
+               </p>
+              <div className="flex space-x-4 sm:space-x-5">
+                <Link href="#" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_25px_0_rgba(255,215,0,0.4)] transition-all duration-300 transform hover:scale-110">
+                  <Twitter className="w-5 h-5 sm:w-6 sm:h-6" />
                 </Link>
-                <Link href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
-                  <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Link href="#" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_25px_0_rgba(255,215,0,0.4)] transition-all duration-300 transform hover:scale-110">
+                  <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
                 </Link>
-                <Link href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
-                  <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Link href="#" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_25px_0_rgba(255,215,0,0.4)] transition-all duration-300 transform hover:scale-110">
+                  <Facebook className="w-5 h-5 sm:w-6 sm:h-6" />
                 </Link>
-                <Link href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_20px_0_rgba(255,215,0,0.3)] transition-all duration-300">
-                  <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Link href="#" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] flex items-center justify-center text-[--primary-foreground] hover:shadow-[0_0_25px_0_rgba(255,215,0,0.4)] transition-all duration-300 transform hover:scale-110">
+                  <Instagram className="w-5 h-5 sm:w-6 sm:h-6" />
                 </Link>
               </div>
             </div>
 
             {/* Product Links */}
-            <div className="space-y-4 sm:space-y-6">
-              <h3 className="text-base sm:text-lg font-bold text-[--accent]">Product</h3>
-              <div className="space-y-2 sm:space-y-3">
-                <Link href="#features" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Features</Link>
-                <Link href="#analytics" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Analytics</Link>
-                <Link href="#pricing" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Pricing</Link>
-                <Link href="/dashboard" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Dashboard</Link>
-                <Link href="/api" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">API</Link>
+            <div className="space-y-6 sm:space-y-8">
+                             <h3 className="text-lg sm:text-xl font-bold text-yellow-400">Product</h3>
+              <div className="space-y-3 sm:space-y-4">
+                                 <Link href="#features" className="block text-base sm:text-lg text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1">{t("home.features.title")}</Link>
+                 <Link href="#analytics" className="block text-base sm:text-lg text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1">{t("home.analytics.title")}</Link>
+                 <Link href="#pricing" className="block text-base sm:text-lg text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1">Pricing</Link>
+                 <Link href="/dashboard" className="block text-base sm:text-lg text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1">{t("header.industryInsights")}</Link>
+                 <Link href="/api" className="block text-base sm:text-lg text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1">API</Link>
               </div>
             </div>
 
             {/* Company Links */}
-            <div className="space-y-4 sm:space-y-6">
-              <h3 className="text-base sm:text-lg font-bold text-[--accent]">Company</h3>
-              <div className="space-y-2 sm:space-y-3">
-                <Link href="/about" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">About Us</Link>
-                <Link href="/careers" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Careers</Link>
-                <Link href="/blog" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Blog</Link>
-                <Link href="/press" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Press</Link>
-                <Link href="/partners" className="block text-sm sm:text-base text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Partners</Link>
+            <div className="space-y-6 sm:space-y-8">
+                             <h3 className="text-lg sm:text-xl font-bold text-yellow-400">Company</h3>
+              <div className="space-y-3 sm:space-y-4">
+                                 <Link href="/about" className="block text-base sm:text-lg text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1">About Us</Link>
+                 <Link href="/careers" className="block text-base sm:text-lg text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1">Careers</Link>
+                 <Link href="/blog" className="block text-base sm:text-lg text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1">Blog</Link>
+                 <Link href="/press" className="block text-base sm:text-lg text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1">Press</Link>
+                 <Link href="/partners" className="block text-base sm:text-lg text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1">Partners</Link>
               </div>
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-4 sm:space-y-6">
-              <h3 className="text-base sm:text-lg font-bold text-[--accent]">Contact</h3>
-              <div className="space-y-3 sm:space-y-4">
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-[--accent]" />
-                  <span className="text-sm sm:text-base text-[--muted-foreground]">hello@saarthi.com</span>
+            <div className="space-y-6 sm:space-y-8">
+                             <h3 className="text-lg sm:text-xl font-bold text-yellow-400">Contact</h3>
+              <div className="space-y-4 sm:space-y-5">
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                                     <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
+                                     <span className="text-base sm:text-lg text-gray-300">hello@saarthi.com</span>
                 </div>
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-[--accent]" />
-                  <span className="text-sm sm:text-base text-[--muted-foreground]">+1 (555) 123-4567</span>
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                                     <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
+                                     <span className="text-base sm:text-lg text-gray-300">+1 (555) 123-4567</span>
                 </div>
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[--accent]" />
-                  <span className="text-sm sm:text-base text-[--muted-foreground]">San Francisco, CA</span>
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                                     <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
+                                     <span className="text-base sm:text-lg text-gray-300">San Francisco, CA</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-[--accent]/20 mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0">
-            <div className="text-xs sm:text-sm text-[--muted-foreground]">
-              © 2024 SAARTHI. All rights reserved.
-            </div>
-            <div className="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6 text-xs sm:text-sm">
-              <Link href="/privacy" className="text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Privacy Policy</Link>
-              <Link href="/terms" className="text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Terms of Service</Link>
-              <Link href="/cookies" className="text-[--muted-foreground] hover:text-[--accent] transition-colors duration-300">Cookie Policy</Link>
+          <div className="border-t border-[--accent]/20 mt-12 sm:mt-16 pt-8 sm:pt-10 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+                         <div className="text-sm sm:text-base text-gray-400">
+               © 2024 {t("header.brand")}. All rights reserved.
+             </div>
+            <div className="flex flex-wrap justify-center sm:justify-end gap-6 sm:gap-8 text-sm sm:text-base">
+                             <Link href="/privacy" className="text-gray-400 hover:text-yellow-400 transition-all duration-300">Privacy Policy</Link>
+               <Link href="/terms" className="text-gray-400 hover:text-yellow-400 transition-all duration-300">Terms of Service</Link>
+               <Link href="/cookies" className="text-gray-400 hover:text-yellow-400 transition-all duration-300">Cookie Policy</Link>
             </div>
           </div>
         </div>
