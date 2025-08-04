@@ -37,17 +37,18 @@ export const generateAIInsights = async (industry) => {
 };
 
 export async function getIndustryInsights() {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
+  try {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Unauthorized");
 
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
-    include: {
-      industryInsight: true,
-    },
-  });
+    const user = await db.user.findUnique({
+      where: { clerkUserId: userId },
+      include: {
+        industryInsight: true,
+      },
+    });
 
-  if (!user) throw new Error("User not found");
+    if (!user) throw new Error("User not found");
 
   // If no insights exist, generate them
   if (!user.industryInsight) {
@@ -64,5 +65,18 @@ export async function getIndustryInsights() {
     return industryInsight;
   }
 
-  return user.industryInsight;
+    return user.industryInsight;
+  } catch (error) {
+    console.error("Database connection error:", error);
+    
+    // Check if it's a database connection error
+    if (error.message.includes("Can't reach database server") || 
+        error.message.includes("ECONNREFUSED") ||
+        error.message.includes("ENOTFOUND")) {
+      throw new Error("Database connection failed. Please check your database configuration.");
+    }
+    
+    // Re-throw other errors
+    throw error;
+  }
 }

@@ -27,8 +27,11 @@ import {
   Globe,
   Zap,
   Star,
-  Building
+  Building,
+  Mail,
+  MessageSquare
 } from "lucide-react";
+import NetworkingTools from "./networking-tools";
 
 const jobStatuses = [
   { value: 'applied', label: 'Applied', icon: Clock, color: 'text-blue-500' },
@@ -41,6 +44,8 @@ const jobStatuses = [
 export default function JobTracker() {
   const [applications, setApplications] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [activeTab, setActiveTab] = useState('applications');
+  const [selectedApplication, setSelectedApplication] = useState(null);
   const [formData, setFormData] = useState({
     company: '',
     position: '',
@@ -207,88 +212,116 @@ export default function JobTracker() {
         </Card>
       </div>
 
-      {/* Find Jobs Section */}
-      <Card className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20 shadow-xl">
-        <CardHeader>
-          <CardTitle className="text-[--foreground] flex items-center gap-2">
-            <Search className="w-6 h-6 text-[--accent]" />
-            Find Jobs
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-[--muted-foreground] mb-6 text-center">
-            Explore job opportunities across multiple platforms and track your applications
-          </p>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {jobPlatforms.map((platform) => {
-              const PlatformIcon = platform.icon;
-              return (
-                <div
-                  key={platform.name}
-                  onClick={() => openJobPlatform(platform)}
-                  className="group cursor-pointer p-4 sm:p-6 border border-[--primary]/20 rounded-xl hover:border-[--primary]/40 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-[--background]/50 to-[--card]/50 backdrop-blur-sm"
-                >
-                  <div className="flex items-start gap-3 sm:gap-4">
-                    <div 
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 flex-shrink-0"
-                      style={{ backgroundColor: platform.color }}
-                    >
-                      <PlatformIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-[--foreground] group-hover:text-[--accent] transition-colors duration-300 text-sm sm:text-base">
-                        {platform.name}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[--muted-foreground] mt-1 mb-3">
-                        {platform.description}
-                      </p>
-                      <div className="flex flex-wrap gap-1">
-                        {platform.features.map((feature, index) => (
-                          <span
-                            key={index}
-                            className="px-2 py-1 text-xs bg-[--primary]/10 text-[--primary] rounded-full border border-[--primary]/20"
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-[--muted-foreground] group-hover:text-[--accent] transition-colors duration-300 flex-shrink-0" />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-6 p-4 bg-gradient-to-r from-[--accent]/10 to-[--primary]/10 border border-[--accent]/20 rounded-lg">
-            <div className="flex items-center gap-2 mb-2">
-              <Target className="w-4 h-4 text-[--accent]" />
-              <span className="font-medium text-[--foreground]">Pro Tips</span>
-            </div>
-            <ul className="text-sm text-[--muted-foreground] space-y-1">
-              <li>• Use multiple platforms to maximize your job search reach</li>
-              <li>• Set up job alerts on each platform for relevant positions</li>
-              <li>• Research companies on Glassdoor before applying</li>
-              <li>• Network on LinkedIn to increase your visibility</li>
-            </ul>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Add Application Button */}
-      <div className="flex justify-center">
-        <Button 
-          onClick={() => setShowForm(!showForm)}
-          className="bg-[--accent] text-[--primary] hover:bg-[--primary-foreground] shadow-lg hover:shadow-[0_0_20px_0_rgba(255,215,0,0.25)] transition-all duration-300 font-bold px-8 py-3"
+      {/* Tab Navigation */}
+      <div className="flex space-x-1 bg-[--background]/50 p-1 rounded-lg border border-[--primary]/20">
+        <button
+          onClick={() => setActiveTab('applications')}
+          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+            activeTab === 'applications'
+              ? 'bg-[--accent] text-[--primary] shadow-lg'
+              : 'text-[--muted-foreground] hover:text-[--foreground] hover:bg-[--background]/30'
+          }`}
         >
-          <Plus className="w-5 h-5 mr-2" />
-          Add Job Application
-        </Button>
+          <Briefcase className="w-4 h-4" />
+          Job Applications
+        </button>
+        <button
+          onClick={() => setActiveTab('networking')}
+          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+            activeTab === 'networking'
+              ? 'bg-[--accent] text-[--primary] shadow-lg'
+              : 'text-[--muted-foreground] hover:text-[--foreground] hover:bg-[--background]/30'
+          }`}
+        >
+          <Mail className="w-4 h-4" />
+          Networking Tools
+        </button>
       </div>
 
-      {/* Add Application Form */}
-      {showForm && (
+      {/* Find Jobs Section */}
+      {activeTab === 'applications' && (
+        <>
+          <Card className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20 shadow-xl">
+            <CardHeader>
+              <CardTitle className="text-[--foreground] flex items-center gap-2">
+                <Search className="w-6 h-6 text-[--accent]" />
+                Find Jobs
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-[--muted-foreground] mb-6 text-center">
+                Explore job opportunities across multiple platforms and track your applications
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {jobPlatforms.map((platform) => {
+                  const PlatformIcon = platform.icon;
+                  return (
+                    <div
+                      key={platform.name}
+                      onClick={() => openJobPlatform(platform)}
+                      className="group cursor-pointer p-4 sm:p-6 border border-[--primary]/20 rounded-xl hover:border-[--primary]/40 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-[--background]/50 to-[--card]/50 backdrop-blur-sm"
+                    >
+                      <div className="flex items-start gap-3 sm:gap-4">
+                        <div 
+                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 flex-shrink-0"
+                          style={{ backgroundColor: platform.color }}
+                        >
+                          <PlatformIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-[--foreground] group-hover:text-[--accent] transition-colors duration-300 text-sm sm:text-base">
+                            {platform.name}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-[--muted-foreground] mt-1 mb-3">
+                            {platform.description}
+                          </p>
+                          <div className="flex flex-wrap gap-1">
+                            {platform.features.map((feature, index) => (
+                              <span
+                                key={index}
+                                className="px-2 py-1 text-xs bg-[--primary]/10 text-[--primary] rounded-full border border-[--primary]/20"
+                              >
+                                {feature}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-[--muted-foreground] group-hover:text-[--accent] transition-colors duration-300 flex-shrink-0" />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-6 p-4 bg-gradient-to-r from-[--accent]/10 to-[--primary]/10 border border-[--accent]/20 rounded-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <Target className="w-4 h-4 text-[--accent]" />
+                  <span className="font-medium text-[--foreground]">Pro Tips</span>
+                </div>
+                <ul className="text-sm text-[--muted-foreground] space-y-1">
+                  <li>• Use multiple platforms to maximize your job search reach</li>
+                  <li>• Set up job alerts on each platform for relevant positions</li>
+                  <li>• Research companies on Glassdoor before applying</li>
+                  <li>• Network on LinkedIn to increase your visibility</li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Add Application Button */}
+          <div className="flex justify-center">
+            <Button 
+              onClick={() => setShowForm(!showForm)}
+              className="bg-[--accent] text-[--primary] hover:bg-[--primary-foreground] shadow-lg hover:shadow-[0_0_20px_0_rgba(255,215,0,0.25)] transition-all duration-300 font-bold px-8 py-3"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Add Job Application
+            </Button>
+          </div>
+
+          {/* Add Application Form */}
+          {showForm && (
         <Card className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20 shadow-xl">
           <CardHeader>
             <CardTitle className="text-[--foreground]">Add New Job Application</CardTitle>
@@ -427,127 +460,167 @@ export default function JobTracker() {
             </form>
           </CardContent>
         </Card>
+          )}
+        </>
       )}
 
       {/* Applications List */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold text-[--foreground] mb-4">Your Applications</h2>
-        {applications.length === 0 ? (
-          <Card className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20 p-8 text-center">
-            <Briefcase className="w-12 h-12 text-[--muted-foreground] mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-[--foreground] mb-2">No applications yet</h3>
-            <p className="text-[--muted-foreground]">Start tracking your job applications to see your progress here.</p>
-          </Card>
-        ) : (
-          applications.map(application => {
-            const statusInfo = jobStatuses.find(s => s.value === application.status);
-            const StatusIcon = statusInfo?.icon || Clock;
-            
-            return (
-              <Card key={application.id} className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20 hover:border-[--primary]/40 transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Building2 className="w-5 h-5 text-[--primary]" />
-                        <h3 className="text-lg font-semibold text-[--foreground]">{application.company}</h3>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusInfo?.color} bg-opacity-10`}>
-                          {statusInfo?.label}
-                        </span>
-                      </div>
-                      <p className="text-[--accent] font-medium mb-2">{application.position}</p>
-                      <div className="flex items-center gap-4 text-sm text-[--muted-foreground]">
-                        {application.location && (
-                          <div className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            {application.location}
-                          </div>
-                        )}
-                        {application.salary && (
-                          <div className="flex items-center gap-1">
-                            <DollarSign className="w-4 h-4" />
-                            {application.salary}
-                          </div>
-                        )}
-                        {application.appliedDate && (
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            {new Date(application.appliedDate).toLocaleDateString()}
-                          </div>
-                        )}
-                      </div>
-                      {application.notes && (
-                        <p className="text-sm text-[--muted-foreground] mt-2 italic">"{application.notes}"</p>
-                      )}
-                      
-                      {/* Job Platform Integration Info */}
-                      {(application.jobPostingUrl || application.recruiterName || application.recruiterEmail) && (
-                        <div className="mt-3 pt-3 border-t border-[--primary]/20">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Globe className="w-4 h-4 text-[--accent]" />
-                            <span className="text-sm font-medium text-[--foreground]">Job Platform Integration</span>
-                          </div>
-                          <div className="space-y-1">
-                            {application.jobPostingUrl && (
-                              <div className="flex items-center gap-2 text-sm">
-                                <ExternalLink className="w-3 h-3 text-[--muted-foreground]" />
-                                <a 
-                                  href={application.jobPostingUrl} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="text-[--accent] hover:underline"
-                                >
-                                  View Job Posting
-                                </a>
-                              </div>
-                            )}
-                            {application.recruiterName && (
-                              <div className="flex items-center gap-2 text-sm">
-                                <Users className="w-3 h-3 text-[--muted-foreground]" />
-                                <span className="text-[--muted-foreground]">Recruiter: {application.recruiterName}</span>
-                              </div>
-                            )}
-                            {application.recruiterEmail && (
-                              <div className="flex items-center gap-2 text-sm">
-                                <Globe className="w-3 h-3 text-[--muted-foreground]" />
-                                <a 
-                                  href={`mailto:${application.recruiterEmail}`}
-                                  className="text-[--accent] hover:underline"
-                                >
-                                  {application.recruiterEmail}
-                                </a>
-                              </div>
-                            )}
-                          </div>
+      {activeTab === 'applications' && (
+        <div className="space-y-4">
+          <h2 className="text-2xl font-bold text-[--foreground] mb-4">Your Applications</h2>
+          {applications.length === 0 ? (
+            <Card className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20 p-8 text-center">
+              <Briefcase className="w-12 h-12 text-[--muted-foreground] mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-[--foreground] mb-2">No applications yet</h3>
+              <p className="text-[--muted-foreground]">Start tracking your job applications to see your progress here.</p>
+            </Card>
+          ) : (
+            applications.map(application => {
+              const statusInfo = jobStatuses.find(s => s.value === application.status);
+              const StatusIcon = statusInfo?.icon || Clock;
+              
+              return (
+                <Card key={application.id} className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20 hover:border-[--primary]/40 transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Building2 className="w-5 h-5 text-[--primary]" />
+                          <h3 className="text-lg font-semibold text-[--foreground]">{application.company}</h3>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusInfo?.color} bg-opacity-10`}>
+                            {statusInfo?.label}
+                          </span>
                         </div>
-                      )}
+                        <p className="text-[--accent] font-medium mb-2">{application.position}</p>
+                        <div className="flex items-center gap-4 text-sm text-[--muted-foreground]">
+                          {application.location && (
+                            <div className="flex items-center gap-1">
+                              <MapPin className="w-4 h-4" />
+                              {application.location}
+                            </div>
+                          )}
+                          {application.salary && (
+                            <div className="flex items-center gap-1">
+                              <DollarSign className="w-4 h-4" />
+                              {application.salary}
+                            </div>
+                          )}
+                          {application.appliedDate && (
+                            <div className="flex items-center gap-1">
+                              <Calendar className="w-4 h-4" />
+                              {new Date(application.appliedDate).toLocaleDateString()}
+                            </div>
+                          )}
+                        </div>
+                        {application.notes && (
+                          <p className="text-sm text-[--muted-foreground] mt-2 italic">"{application.notes}"</p>
+                        )}
+                        
+                        {/* Job Platform Integration Info */}
+                        {(application.jobPostingUrl || application.recruiterName || application.recruiterEmail) && (
+                          <div className="mt-3 pt-3 border-t border-[--primary]/20">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Globe className="w-4 h-4 text-[--accent]" />
+                              <span className="text-sm font-medium text-[--foreground]">Job Platform Integration</span>
+                            </div>
+                            <div className="space-y-1">
+                              {application.jobPostingUrl && (
+                                <div className="flex items-center gap-2 text-sm">
+                                  <ExternalLink className="w-3 h-3 text-[--muted-foreground]" />
+                                  <a 
+                                    href={application.jobPostingUrl} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="text-[--accent] hover:underline"
+                                  >
+                                    View Job Posting
+                                  </a>
+                                </div>
+                              )}
+                              {application.recruiterName && (
+                                <div className="flex items-center gap-2 text-sm">
+                                  <Users className="w-3 h-3 text-[--muted-foreground]" />
+                                  <span className="text-[--muted-foreground]">Recruiter: {application.recruiterName}</span>
+                                </div>
+                              )}
+                              {application.recruiterEmail && (
+                                <div className="flex items-center gap-2 text-sm">
+                                  <Globe className="w-3 h-3 text-[--muted-foreground]" />
+                                  <a 
+                                    href={`mailto:${application.recruiterEmail}`}
+                                    className="text-[--accent] hover:underline"
+                                  >
+                                    {application.recruiterEmail}
+                                  </a>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={application.status}
+                          onChange={(e) => updateStatus(application.id, e.target.value)}
+                          className="p-1 rounded text-xs bg-[--background]/50 border border-[--primary]/20 text-[--foreground]"
+                        >
+                          {jobStatuses.map(status => (
+                            <option key={status.value} value={status.value}>{status.label}</option>
+                          ))}
+                        </select>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => deleteApplication(application.id)}
+                          className="text-red-500 hover:text-red-600 hover:bg-red-500/10"
+                        >
+                          <XCircle className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <select
-                        value={application.status}
-                        onChange={(e) => updateStatus(application.id, e.target.value)}
-                        className="p-1 rounded text-xs bg-[--background]/50 border border-[--primary]/20 text-[--foreground]"
-                      >
-                        {jobStatuses.map(status => (
-                          <option key={status.value} value={status.value}>{status.label}</option>
-                        ))}
-                      </select>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => deleteApplication(application.id)}
-                        className="text-red-500 hover:text-red-600 hover:bg-red-500/10"
-                      >
-                        <XCircle className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })
-        )}
-      </div>
+                  </CardContent>
+                </Card>
+              );
+            })
+          )}
+        </div>
+      )}
+
+      {/* Networking Tools Tab */}
+      {activeTab === 'networking' && (
+        <div className="space-y-6">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-[--foreground] mb-2">Networking Tools</h2>
+            <p className="text-[--muted-foreground]">Generate professional cold emails and LinkedIn messages to connect with HR professionals</p>
+          </div>
+          
+          {/* Application Selector */}
+          {applications.length > 0 && (
+            <Card className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20">
+              <CardContent className="p-4">
+                <label className="block text-sm font-medium text-[--muted-foreground] mb-2">Select Application to Auto-fill</label>
+                <select
+                  value={selectedApplication?.id || ''}
+                  onChange={(e) => {
+                    const app = applications.find(a => a.id === parseInt(e.target.value));
+                    setSelectedApplication(app);
+                  }}
+                  className="w-full p-2 rounded-md bg-[--background]/50 border border-[--primary]/20 text-[--foreground]"
+                >
+                  <option value="">Choose an application...</option>
+                  {applications.map(app => (
+                    <option key={app.id} value={app.id}>
+                      {app.position} at {app.company}
+                    </option>
+                  ))}
+                </select>
+              </CardContent>
+            </Card>
+          )}
+          
+          <NetworkingTools selectedApplication={selectedApplication} />
+        </div>
+      )}
     </div>
   );
 } 

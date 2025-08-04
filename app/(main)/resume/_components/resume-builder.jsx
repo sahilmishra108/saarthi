@@ -23,6 +23,8 @@ import useFetch from "@/hooks/use-fetch";
 import { useUser } from "@clerk/nextjs";
 import { entriesToMarkdown } from "@/app/lib/helper";
 import { resumeSchema } from "@/app/lib/schema";
+
+import KeywordSuggestions from "./keyword-suggestions";
 // Dynamic imports to avoid SSR issues
 let html2canvas = null;
 if (typeof window !== 'undefined') {
@@ -36,6 +38,7 @@ export default function ResumeBuilder({ initialContent }) {
   const [previewContent, setPreviewContent] = useState(initialContent);
   const { user } = useUser();
   const [resumeMode, setResumeMode] = useState("preview");
+  const [keywordSuggestions, setKeywordSuggestions] = useState([]);
 
   const {
     control,
@@ -86,6 +89,12 @@ export default function ResumeBuilder({ initialContent }) {
       toast.error(saveError.message || "Failed to save resume");
     }
   }, [saveResult, saveError, isSaving]);
+
+  // Handle keyword suggestions
+  const handleKeywordAdd = (keyword) => {
+    setKeywordSuggestions(prev => [...prev, keyword]);
+    toast.success(`Added "${keyword}" to suggestions`);
+  };
 
   const getContactMarkdown = () => {
     const { contactInfo } = formValues;
@@ -271,9 +280,10 @@ export default function ResumeBuilder({ initialContent }) {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList>
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="edit">Form</TabsTrigger>
           <TabsTrigger value="preview">Markdown</TabsTrigger>
+          <TabsTrigger value="keywords">Keywords</TabsTrigger>
         </TabsList>
 
         <TabsContent value="edit">
@@ -505,6 +515,45 @@ export default function ResumeBuilder({ initialContent }) {
                 }}
               />
             </div>
+          </div>
+        </TabsContent>
+
+
+
+        <TabsContent value="keywords">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">Keyword Suggestions</h2>
+              <Button
+                variant="outline"
+                onClick={() => setActiveTab("edit")}
+              >
+                Back to Edit
+              </Button>
+            </div>
+            <KeywordSuggestions 
+              resumeContent={previewContent} 
+              onKeywordAdd={handleKeywordAdd}
+            />
+            
+            {keywordSuggestions.length > 0 && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium">Suggested Keywords to Add</h3>
+                <div className="flex flex-wrap gap-2">
+                  {keywordSuggestions.map((keyword, index) => (
+                    <div key={index} className="flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-full">
+                      <span className="text-sm font-medium">{keyword}</span>
+                      <button
+                        onClick={() => setKeywordSuggestions(prev => prev.filter((_, i) => i !== index))}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </TabsContent>
       </Tabs>

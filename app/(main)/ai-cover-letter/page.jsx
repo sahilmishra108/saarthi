@@ -15,10 +15,10 @@ export default async function CoverLetterPage() {
       <div className="relative z-10 min-h-screen bg-background/80 backdrop-blur-sm">
         <div className="container mx-auto py-8 px-6 md:px-12">
           <div className="mb-8 text-center" data-aos="fade-up">
-            <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-[--primary]">
-              AI Cover <span className="text-[--accent]">Letters</span>
+            <h1 className="text-5xl md:text-6xl font-extrabold mb-4">
+              <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Cover Letters</span>
             </h1>
-            <p className="text-xl text-[--muted-foreground] max-w-2xl mx-auto mb-8">
+            <p className="text-xl text-white max-w-2xl mx-auto mb-8">
               Generate compelling cover letters tailored to your target roles
             </p>
             <Link href="/ai-cover-letter/new">

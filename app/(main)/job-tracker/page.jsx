@@ -9,10 +9,10 @@ export default function JobTrackerPage() {
       <div className="relative z-10 min-h-screen bg-background/80 backdrop-blur-sm">
         <div className="container mx-auto py-6 sm:py-8 px-4 sm:px-6 md:px-12">
           <div className="mb-6 sm:mb-8 text-center" data-aos="fade-up">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 text-[--primary]">
-              Job <span className="text-[--accent]">Tracker</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4">
+              <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Job Tracker</span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-[--muted-foreground] max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto">
               Track your job applications, interviews, and career progress with AI-powered insights
             </p>
           </div>

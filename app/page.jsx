@@ -215,8 +215,9 @@ export default function LandingPage() {
       <section id="features" className="w-full py-20 sm:py-24 md:py-32 bg-background scroll-fade-in" data-aos="fade-up">
         <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl">
                      <div className="text-center mb-16">
-             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-6">
-               {t("home.features.title")}
+             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6">
+               <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Powerful </span>
+               <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">Tools</span>
              </h2>
              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                Everything you need to accelerate your career growth and achieve your professional goals
@@ -252,8 +253,9 @@ export default function LandingPage() {
       <section id="analytics" className="w-full py-20 sm:py-24 md:py-32 bg-background scroll-fade-in" data-aos="fade-up">
         <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl">
                      <div className="text-center mb-16">
-             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-6">
-               {t("home.analytics.title")}
+             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6">
+               <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Visual </span>
+               <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">Analytics</span>
              </h2>
              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                Real-time insights and data-driven recommendations to optimize your career strategy
@@ -278,16 +280,17 @@ export default function LandingPage() {
 
       {/* TESTIMONIALS */}
       <section id="testimonials" className="w-full py-20 sm:py-24 md:py-32 bg-background scroll-fade-in" data-aos="fade-up">
-        <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-6xl">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl">
                      <div className="text-center mb-16">
-             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-6">
-               {t("home.testimonials.title")}
+             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6">
+               <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Success </span>
+               <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">Stories</span>
              </h2>
              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                Hear from professionals who have transformed their careers with SAARTHI
              </p>
            </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 max-w-6xl mx-auto">
             <TestimonialCard
               image="https://randomuser.me/api/portraits/men/32.jpg"
               quote="This platform gave me the edge I needed. The analytics and AI coaching are a game-changer for my career."
@@ -308,6 +311,13 @@ export default function LandingPage() {
               name="David Chen"
               role="Software Engineer, Google"
               delay={300}
+            />
+            <TestimonialCard
+              image="https://randomuser.me/api/portraits/women/28.jpg"
+              quote="The AI-powered interview preparation helped me build confidence and ace my technical interviews."
+              name="Sarah Williams"
+              role="Data Scientist, Amazon"
+              delay={400}
             />
           </div>
         </div>
@@ -550,19 +560,23 @@ function KPIWidget({ icon, label, value, accentBg, dataAosDelay }) {
 function TestimonialCard({ image, quote, name, role, delay, small }) {
   return (
     <Card
-      className={`backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/20 shadow-xl rounded-2xl ${small ? 'p-4 sm:p-6' : 'p-8 sm:p-12'} flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 hover:border-[--primary]/40 hover:shadow-lg group`}
-      data-aos="fade-up"
+      className="backdrop-blur-xl bg-gradient-to-br from-[--background]/80 to-[--card]/90 border border-[--primary]/30 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 hover:border-[--accent] hover:shadow-[0_8px_32px_0_rgba(255,215,0,0.15)] group"
+      style={{boxShadow:'0 8px 32px 0 rgba(31, 38, 135, 0.18)'}}
+      data-aos="zoom-in"
       data-aos-delay={delay}
     >
       <CardContent>
-        <div className="flex flex-col items-center gap-2 sm:gap-3">
-          <span className={`inline-flex items-center justify-center ${small ? 'w-10 h-10 sm:w-12 sm:h-12' : 'w-16 h-16 sm:w-20 sm:h-20'} rounded-full bg-gradient-to-br from-[--primary] to-[--primary]/80 p-1 shadow-md mb-1`}>
-            <Image src={image} width={small ? 40 : 72} height={small ? 40 : 72} alt={name} className="rounded-full border-2 border-[--background] object-cover" />
-          </span>
-          <span className={`text-2xl sm:text-3xl text-[--primary] mb-1`}>"</span>
-          <AnimatedQuote text={quote} small={small} />
-          <span className={`font-semibold text-[--primary] ${small ? 'text-sm sm:text-base' : 'text-base sm:text-lg'} mt-1`}>{name}</span>
-          <span className={`text-xs text-[--muted-foreground] block`}>{role}</span>
+        <div className="flex flex-col items-center">
+          <div className="mb-4 sm:mb-5 flex items-center justify-center">
+            <span className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-[--accent] to-[--primary] shadow-lg group-hover:shadow-[0_0_24px_0_rgba(124,58,237,0.25)]">
+              <Image src={image} width={48} height={48} alt={name} className="rounded-full border-2 border-[--background] object-cover w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+            </span>
+          </div>
+          <h3 className="text-lg sm:text-xl font-extrabold text-white mb-2 tracking-tight drop-shadow-sm">{name}</h3>
+          <p className="text-sm sm:text-base text-white/90 leading-relaxed font-medium drop-shadow-sm mb-3">{role}</p>
+          <div className="text-sm sm:text-base text-white/80 leading-relaxed font-normal drop-shadow-sm italic">
+            "{quote}"
+          </div>
         </div>
       </CardContent>
     </Card>
